@@ -1,0 +1,99 @@
+* {
+  box-sizing: border-box; }
+
+:root {
+  font-size: 16px; }
+
+body {
+  font-family: "Space Mono", monospace; }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "BioRhyme", serif; }
+
+.btn-success {
+  background-color: #d45fc1;
+  border: solid #fff 1px; }
+
+.btn-success:hover {
+  background-color: #e63ab2;
+  border: #fff !important; }
+
+.btn-success:active {
+  background-color: #e63ab2 !important;
+  border: #fff !important;
+  box-shadow: none !important; }
+
+.btn-success:focus {
+  background-color: #e63ab2;
+  border: #fff !important;
+  box-shadow: none !important; }
+
+header .contenedor-menu {
+  background: url(/assets/fondo.png), linear-gradient(to left, #d45fc1, #e63ab2); }
+  header .contenedor-menu .titulo h1 {
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    padding-top: 1.5rem;
+    margin: 0; }
+  header .contenedor-menu .menu button {
+    background-color: #d45fc1;
+    color: #fff;
+    text-transform: uppercase;
+    border: 1px solid #e63ab2;
+    border-radius: 5px;
+    padding: 10px; }
+    header .contenedor-menu .menu button:hover {
+      background-color: #e63ab2;
+      border: 1px solid #d45fc1; }
+
+.contenedor-info {
+  margin-top: 1px; }
+  .contenedor-info .contenedor-curso {
+    display: none; }
+    .contenedor-info .contenedor-curso button {
+      background-color: #d45fc1;
+      color: #fff;
+      text-transform: uppercase;
+      border: 1px solid #e63ab2;
+      border-radius: 5px;
+      padding: 10px; }
+      .contenedor-info .contenedor-curso button:hover {
+        background-color: #e63ab2;
+        border: 1px solid #d45fc1; }
+    .contenedor-info .contenedor-curso .agregar-curso {
+      margin-top: 2rem;
+      display: none; }
+    .contenedor-info .contenedor-curso .mostrar-curso {
+      display: none;
+      max-height: 500px;
+      width: 50%;
+      margin-top: 2rem;
+      overflow: scroll; }
+  .contenedor-info .contenedor-alumnos {
+    display: none; }
+    .contenedor-info .contenedor-alumnos button {
+      background-color: #d45fc1;
+      color: #fff;
+      text-transform: uppercase;
+      border: 1px solid #e63ab2;
+      border-radius: 5px;
+      padding: 10px; }
+      .contenedor-info .contenedor-alumnos button:hover {
+        background-color: #e63ab2;
+        border: 1px solid #d45fc1; }
+    .contenedor-info .contenedor-alumnos .agregar-alumno {
+      display: none;
+      margin-top: 2rem; }
+    .contenedor-info .contenedor-alumnos .mostrar-alumnos {
+      display: none;
+      margin-top: 2rem;
+      max-height: 500px;
+      width: 50%;
+      margin-top: 2rem;
+      overflow: scroll; }

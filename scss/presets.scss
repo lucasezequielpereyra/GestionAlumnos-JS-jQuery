@@ -1,0 +1,40 @@
+* {
+    box-sizing: border-box;
+}
+:root {
+    font-size: 16px;
+}
+body {
+    font-family: "Space Mono", monospace;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "BioRhyme", serif;
+}
+
+
+.btn-success{
+    background-color: #d45fc1;
+    border: solid #fff 1px;
+}
+
+.btn-success:hover{
+    background-color: #e63ab2;
+    border: #fff !important;
+}
+
+.btn-success:active{
+    background-color: #e63ab2 !important;
+    border: #fff !important;
+    box-shadow: none !important;
+}
+
+.btn-success:focus{
+    background-color: #e63ab2;
+    border: #fff !important;
+    box-shadow: none !important;
+}

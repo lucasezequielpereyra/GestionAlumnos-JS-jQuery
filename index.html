@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <!--Estilos-->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!--Fuentes-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@800&family=Space+Mono&display=swap"
+        rel="stylesheet">
+
+    <title>Proyecto Final - CoderHouse</title>
+</head>
+
+<body>
+
+    <header>
+        <div class="contenedor-menu container-fluyd">
+            <div class="titulo">
+                <h1>Sistema de Cursos</h1>
+            </div>
+            <div class="menu">
+                <button id="menuCursos">Gestion de Cursos</button>
+                <button id="menuAlumnos">Gestion de Alumnos</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="contenedor-info">
+        <div class="contenedor-curso container-lg">
+            <button id="btnAgregarCursos">Agregar Cursos</button>
+            <button id="btnMostrarCursos">Mostrar Cursos</button>
+            <div class="agregar-curso">
+                <div class="contenedor-formulario container-lg">
+                    <form class="container-lg" id="formularioCursos">
+                        <div class="form-group">
+                            <label for="input-id" class="col-lg-2">ID</label>
+                            <div class="col-lg-5">
+                                <input type="text" class="form-control" id="input-id"
+                                    placeholder="Identificador del curso">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-nombreCursos" class="col-lg-2">Nombre</label>
+                            <div class="col-lg-5">
+                                <input type="text" class="form-control" id="input-nombreCursos" placeholder="Nombre">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-rubro" class="col-lg-2">Rubro</label>
+                            <div class="col-lg-5">
+                                <input type="text" class="form-control" id="input-rubro" placeholder="Rubro">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-success" id="agregarCurso">Agregar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="mostrar-curso">
+            </div>
+        </div>
+        <div class="contenedor-alumnos container-lg">
+            <button id="btnAgregarAlumno">Agregar Alumno</button>
+            <button id="btnMostrarAlumnos">Mostrar Alumnos</button>
+
+            <div class="agregar-alumno">
+                <form class="container-lg" id="formPersonas">
+                    <div class="form-group">
+                        <label for="input-dni" class="col-lg-2">DNI</label>
+                        <div class="col-lg-5">
+                            <input type="text" class="form-control" id="input-dni" placeholder="DNI">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-nombre" class="col-lg-2">Nombre</label>
+                        <div class="col-lg-5">
+                            <input type="text" class="form-control" id="input-nombre" placeholder="Nombre">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-apellido" class="col-lg-2">Apellido</label>
+                        <div class="col-lg-5">
+                            <input type="text" class="form-control" id="input-apellido" placeholder="Apellido">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-edad" class="col-lg-2">Edad</label>
+                        <div class="col-lg-2">
+                            <input type="text" class="form-control" id="input-edad" placeholder="Edad">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="select-curso" class="col-lg-2">Curso</label>
+                        <div class="col-lg-5" id="form-select">
+                            <select class="form-control" id="select-curso">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <button class="btn btn-success" id="agregarPersona">Agregar</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="mostrar-alumnos"></div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="./javascript/Personas.js" languaje="javascript" type="text/javascript"></script>
+    <script src="./javascript/Cursos.js" languaje="javascript" type="text/javascript"></script>
+    <script src="./javascript/main.js" languaje="javascript" type="text/javascript"></script>
+</body>
+
+</html>
