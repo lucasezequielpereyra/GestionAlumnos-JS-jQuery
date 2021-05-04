@@ -107,7 +107,7 @@ const modalPersona = (dni) => {
 
             <div>
                 <label for="input-alumnoCursos"> Cursos: </label>
-                <input type="text" id"input-alumnoCursos" name="input-alumnoCursos" value="${buscarCursos(persona._curso)} readonly">
+                <input type="text" id"input-alumnoCursos" name="input-alumnoCursos" value="${buscarCursos(persona._curso)}" readonly>
                 </input>
             </div>
             
