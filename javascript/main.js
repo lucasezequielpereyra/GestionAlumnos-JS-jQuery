@@ -20,6 +20,14 @@ const cargarAlumnos = (jsonObj) => {
     });
 }
 
+const buscarCursos = (id) =>{
+    for(curso of JSON.parse(localStorage.getItem('arrayCursos'))){
+        if(id == curso._id){
+            return curso._nombre;
+        }
+    }
+}
+
 const modalPersona = (dni) => {
 
     let removeModal = document.querySelector("#modalPersona");
@@ -94,6 +102,12 @@ const modalPersona = (dni) => {
             <div>
                 <label for="input-alumnoApellido"> Edad: </label>
                 <input type="text" id"input-alumnoEdad" name="input-aliumnoEdad" value="${persona._edad}">
+                </input>
+            </div>
+
+            <div>
+                <label for="input-alumnoCursos"> Cursos: </label>
+                <input type="text" id"input-alumnoCursos" name="input-alumnoCursos" value="${buscarCursos(persona._curso)} readonly">
                 </input>
             </div>
             
