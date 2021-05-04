@@ -26,6 +26,9 @@ header {
                     border: 1px solid #d45fc1;
                 }
             }
+            #precargaDatos{
+                display: none;
+            }
         }
     }
 }
@@ -92,5 +95,11 @@ header {
                 font-size: .8rem;
             }
         }
+    }
+}
+
+#modalPersona{
+    #spanAlumno{
+        color: #e63ab2;
     }
 }

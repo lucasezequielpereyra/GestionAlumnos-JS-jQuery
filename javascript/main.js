@@ -1,15 +1,34 @@
 let personas = [];
 let cursos = [];
 
+const urlAlumnos = '../api/alumnos.json';
+const urlCursos = '../api/cursos.json';
+
+const cargarCursos = (jsonObj) => {
+    jsonObj.forEach(jsonItem => {
+        const {_id, _nombre, _rubro} = jsonItem;
+        cursos.push(new Cursos(jsonItem._id, jsonItem._nombre, jsonItem._rubro));
+        localStorage.setItem('arrayCursos', JSON.stringify(cursos));
+    });
+}
+
+const cargarAlumnos = (jsonObj) => {
+    jsonObj.forEach(jsonItem => {
+        const {_dni, _nombre, _apellido, _edad, _curso} = jsonItem;
+        personas.push(new Personas(jsonItem._dni, jsonItem._nombre, jsonItem._apellido, jsonItem._edad, jsonItem._curso));
+        localStorage.setItem('arrayPersonas', JSON.stringify(personas));
+    });
+}
+
 const modalPersona = (dni) => {
 
     let removeModal = document.querySelector("#modalPersona");
-    if(removeModal){
+    if (removeModal) {
         removeModal.remove();
     }
-    
-    for (let persona of JSON.parse(localStorage.getItem('arrayPersonas'))){
-        if(persona._dni == dni) { 
+
+    for (let persona of JSON.parse(localStorage.getItem('arrayPersonas'))) {
+        if (persona._dni == dni) {
             const modalFade = document.createElement('div');
             modalFade.className = "modal fade";
             modalFade.setAttribute('id', 'modalPersona');
@@ -32,7 +51,10 @@ const modalPersona = (dni) => {
             const modalH = document.createElement('h5');
             modalH.className = 'modal-title';
             modalH.setAttribute('id', 'modalPersona');
-            modalH.textContent = ` ${persona._nombre} ${persona._apellido} `;
+            modalH.innerHTML = `
+                Alumno: <span id="spanAlumno">${persona._nombre} 
+                ${persona._apellido} </span>
+            `;
             modalHeader.appendChild(modalH);
 
             const btnModal = document.createElement('button');
@@ -47,10 +69,35 @@ const modalPersona = (dni) => {
             spanButton.setAttribute('aria-hidden', 'true');
             spanButton.innerHTML = `&times;`
             btnModal.appendChild(spanButton);
-            
+
             const modalBody = document.createElement('div');
             modalBody.className = 'modal-body';
-            modalBody.textContent = 'Falta Agregar Info';
+            modalBody.innerHTML = `
+            <div>
+                <label for="input-alumnoDni"> DNI: </label>
+                <input type="text" id"input-alumnoDni" name="input-alumnoDni" value="${persona._dni}" readonly>
+                </input>
+            </div>
+
+            <div>
+                <label for="input-alumnoNombre"> Nombre: </label>
+                <input type="text" id"input-alumnoNombre" name="input-alumnoNombre" value="${persona._nombre}">
+                </input>
+            </div>
+
+            <div>
+                <label for="input-alumnoApellido"> Apellido: </label>
+                <input type="text" id"input-alumnoApellido" name="input-alumnoApellido" value="${persona._apellido}">
+                </input>
+            </div>
+            
+            <div>
+                <label for="input-alumnoApellido"> Edad: </label>
+                <input type="text" id"input-alumnoEdad" name="input-aliumnoEdad" value="${persona._edad}">
+                </input>
+            </div>
+            
+            `;
             modalContent.appendChild(modalBody);
 
             const modalFooter = document.createElement('div');
@@ -63,7 +110,7 @@ const modalPersona = (dni) => {
             btnFooter.setAttribute('data-dismiss', 'modal');
             btnFooter.textContent = 'Cerrar';
             modalFooter.appendChild(btnFooter);
-            
+
             const body = document.querySelector("#body");
             body.appendChild(modalFade);
 
@@ -103,7 +150,7 @@ const mostrarPersona = () => {
 
             $('ul').append(li);
 
-            $(`.${item._dni}`).click( function (e) {
+            $(`.${item._dni}`).click(function (e) {
                 e.preventDefault();
                 modalPersona(item._dni);
             });
@@ -195,7 +242,7 @@ const rellenarSelectAlumnos = () => {
 
     $('#form-select').append(selectCursos);
 
-    for(item of recuperoCursos){
+    for (item of recuperoCursos) {
         let option = document.createElement('option');
         option.textContent = `${item._id};${item._nombre};${item._rubro}`
         $('#select-curso').append(option);
@@ -242,7 +289,7 @@ const inicializar = () => {
         e.preventDefault();
         $('.mostrar-alumnos').slideUp();
         $('.agregar-alumno').toggle('fast');
-        rellenarSelectAlumnos(); 
+        rellenarSelectAlumnos();
     });
 
     $('#agregarPersona').click(function (e) {
@@ -256,7 +303,27 @@ const inicializar = () => {
         $('.mostrar-alumnos').toggle('fast');
         mostrarPersona();
     });
-    
+
+    if (!JSON.parse(localStorage.getItem('arrayCursos')) || !JSON.parse(localStorage.getItem('arrayPersonas')) ){
+        $('#precargaDatos').toggle('fast');
+    }
+
+    $('#precargaDatos').click(function (e){
+        e.preventDefault();
+
+        fetch(`${urlCursos}`)
+        .then((res)=> res.json())
+        .then((obj)=> cargarCursos(obj))
+        .catch((err)=> alert(err + " Algo salio mal "))
+
+        fetch(`${urlAlumnos}`)
+        .then((res)=> res.json())
+        .then((obj)=> cargarAlumnos(obj))
+        .catch((err)=> alert(err + " Algo salio mal "))
+
+        $('#precargaDatos').toggle('slow');
+    });
+
 }
 
 $(() => inicializar()); // Cargo el documento utilizando selector de jQuery

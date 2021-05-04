@@ -1,0 +1,25 @@
+[
+    {
+        "_id":"001",
+        "_nombre":"Programacion",
+        "_rubro":"Tecnologia"
+    },
+    
+    {
+        "_id":"002",
+        "_nombre":"Bases de Datos",
+        "_rubro":"Tecnologia"
+    },
+    
+    {
+        "_id":"003",
+        "_nombre":"Ingles",
+        "_rubro":"Idiomas"
+    },
+    
+    {
+        "_id":"004",
+        "_nombre":"Ingles II",
+        "_rubro":"Idiomas"
+    }
+]

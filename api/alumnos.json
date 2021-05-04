@@ -1,0 +1,17 @@
+[
+    {
+        "_dni":38562993,
+        "_nombre":"Lucas",
+        "_apellido":"Pereyra",
+        "_edad":22,
+        "_curso":"001"
+    },
+
+    {
+        "_dni":22251241,
+        "_nombre":"Elisabet",
+        "_apellido":"De Vita",
+        "_edad":50,
+        "_curso":"002"
+    }
+]

@@ -51,6 +51,8 @@ header .contenedor-menu {
     header .contenedor-menu .menu button:hover {
       background-color: #e63ab2;
       border: 1px solid #d45fc1; }
+  header .contenedor-menu .menu #precargaDatos {
+    display: none; }
 
 .contenedor-info {
   margin-top: 1px; }
@@ -102,3 +104,6 @@ header .contenedor-menu {
       .contenedor-info .contenedor-alumnos .mostrar-alumnos button {
         margin-left: 4rem;
         font-size: .8rem; }
+
+#modalPersona #spanAlumno {
+  color: #e63ab2; }
