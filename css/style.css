@@ -74,7 +74,8 @@ header .contenedor-menu {
       max-height: 500px;
       width: 50%;
       margin-top: 2rem;
-      overflow: scroll; }
+      overflow: scroll;
+      overflow-x: hidden; }
   .contenedor-info .contenedor-alumnos {
     display: none; }
     .contenedor-info .contenedor-alumnos button {
@@ -96,4 +97,8 @@ header .contenedor-menu {
       max-height: 500px;
       width: 50%;
       margin-top: 2rem;
-      overflow: scroll; }
+      overflow: scroll;
+      overflow-x: hidden; }
+      .contenedor-info .contenedor-alumnos .mostrar-alumnos button {
+        margin-left: 4rem;
+        font-size: .8rem; }

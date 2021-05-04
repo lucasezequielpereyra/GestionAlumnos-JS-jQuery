@@ -1,6 +1,79 @@
 let personas = [];
 let cursos = [];
-const miURL = '../api/personas.json';
+
+const modalPersona = (dni) => {
+
+    let removeModal = document.querySelector("#modalPersona");
+    if(removeModal){
+        removeModal.remove();
+    }
+    
+    for (let persona of JSON.parse(localStorage.getItem('arrayPersonas'))){
+        if(persona._dni == dni) { 
+            const modalFade = document.createElement('div');
+            modalFade.className = "modal fade";
+            modalFade.setAttribute('id', 'modalPersona');
+            modalFade.setAttribute('tabindex', '-1');
+            modalFade.setAttribute('aria-labelledby', 'modalPersonaLabel');
+            modalFade.setAttribute('aria-hidden', 'true');
+
+            const modalDialog = document.createElement('div');
+            modalDialog.className = 'modal-dialog';
+            modalFade.appendChild(modalDialog);
+
+            const modalContent = document.createElement('div');
+            modalContent.className = 'modal-content';
+            modalDialog.appendChild(modalContent);
+
+            const modalHeader = document.createElement('div');
+            modalHeader.className = 'modal-header';
+            modalContent.appendChild(modalHeader);
+
+            const modalH = document.createElement('h5');
+            modalH.className = 'modal-title';
+            modalH.setAttribute('id', 'modalPersona');
+            modalH.textContent = ` ${persona._nombre} ${persona._apellido} `;
+            modalHeader.appendChild(modalH);
+
+            const btnModal = document.createElement('button');
+            btnModal.className = 'close';
+            btnModal.setAttribute('id', 'closeModal')
+            btnModal.setAttribute('type', 'button');
+            btnModal.setAttribute('data-dismiss', 'modal');
+            btnModal.setAttribute('aria-label', 'Close');
+            modalHeader.appendChild(btnModal);
+
+            const spanButton = document.createElement('span');
+            spanButton.setAttribute('aria-hidden', 'true');
+            spanButton.innerHTML = `&times;`
+            btnModal.appendChild(spanButton);
+            
+            const modalBody = document.createElement('div');
+            modalBody.className = 'modal-body';
+            modalBody.textContent = 'Falta Agregar Info';
+            modalContent.appendChild(modalBody);
+
+            const modalFooter = document.createElement('div');
+            modalFooter.className = 'modal-footer';
+            modalContent.appendChild(modalFooter);
+
+            const btnFooter = document.createElement('button');
+            btnFooter.className = 'btn btn-secondary';
+            btnFooter.setAttribute('type', 'button');
+            btnFooter.setAttribute('data-dismiss', 'modal');
+            btnFooter.textContent = 'Cerrar';
+            modalFooter.appendChild(btnFooter);
+            
+            const body = document.querySelector("#body");
+            body.appendChild(modalFade);
+
+            $('#modalPersona').modal('show');
+
+            break;
+        }
+    }
+}
+
 
 const mostrarPersona = () => {
     if (document.querySelector('.list-group')) {
@@ -15,34 +88,24 @@ const mostrarPersona = () => {
         for (let item of JSON.parse(localStorage.getItem('arrayPersonas'))) {
             const li = document.createElement('li');
             li.className = "list-group-item";
-            li.textContent = `${item._nombre} ${item._apellido} - DNI: ${item._dni} - ${item._edad} años`;
+            li.innerHTML = `${item._nombre} ${item._apellido}`;
+
+            const btn = document.createElement('button');
+            btn.type = "button"
+            btn.className = `${item._dni}`;
+            btn.textContent = "Ver"
+            li.appendChild(btn);
+
             $('ul').append(li);
+
+            $(`.${item._dni}`).click( function (e) {
+                e.preventDefault();
+                modalPersona(item._dni);
+            });
         }
     } else {
         alert("No hay personas en la lista");
     }
-}
-
-const mostrarApi = (jsonObj) => {
-    if (document.querySelector('.list-group')) {
-        let restabelecerLista = document.querySelector('.list-group');
-        restabelecerLista.remove();
-    }
-
-    const ulApi = document.createElement('ul');
-    ulApi.className = "list-group";
-    $('#contenedorApi').append(ulApi);
-    jsonObj.forEach(jsonItem => {
-        const { _dni, _nombre, _apellido, _edad } = jsonItem;
-        const liApi = document.createElement('li');
-            liApi.className = "list-group-item";
-            liApi.textContent = `${_nombre} ${_apellido} - DNI: ${_dni} - ${_edad} años`;
-            $('ul').append(liApi);
-    });
-
-    $('#contenedorApi').slideDown();
-    $('#btnMostrarApi').hide();
-    $('#btnOcultarApi').fadeIn("fast");
 }
 
 const agregarPersona = () => {
