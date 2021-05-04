@@ -1,8 +1,8 @@
 let personas = [];
 let cursos = [];
 
-const urlAlumnos = '../api/alumnos.json';
-const urlCursos = '../api/cursos.json';
+const urlAlumnos = 'https://lucasezequielpereyra.github.io/coder-js/api/alumnos.json';
+const urlCursos = 'https://lucasezequielpereyra.github.io/coder-js/api/cursos.json';
 
 const cargarCursos = (jsonObj) => {
     jsonObj.forEach(jsonItem => {
