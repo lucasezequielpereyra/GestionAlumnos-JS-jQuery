@@ -81,6 +81,11 @@ const mostrarPersona = () => {
         restabelecerLista.remove();
     }
 
+    if (document.querySelector('.list-groupCursos')) {
+        let listaCurso = document.querySelector('.list-groupCursos');
+        listaCurso.remove();
+    }
+
     if (JSON.parse(localStorage.getItem('arrayPersonas'))) {
         const ul = document.createElement('ul');
         ul.className = "list-group";
@@ -156,6 +161,11 @@ const mostrarCurso = () => {
         listaCurso.remove();
     }
 
+    if (document.querySelector('.list-group')) {
+        let restabelecerLista = document.querySelector('.list-group');
+        restabelecerLista.remove();
+    }
+
     if (JSON.parse(localStorage.getItem('arrayCursos'))) {
         const ul = document.createElement('ul');
         ul.className = "list-group list-groupCursos";
@@ -172,13 +182,14 @@ const mostrarCurso = () => {
 }
 
 const rellenarSelectAlumnos = () => {
-    let recuperoCursos = JSON.parse(localStorage.getItem('arrayCursos'));
-    if (document.querySelector('#select-curso')) {
-        let selectCursos = document.querySelector('#select-curso');
-        selectCursos.remove();
+    let removeCursos = document.querySelector('#select-curso')
+    if (removeCursos) {
+        removeCursos.remove();
     }
 
-    let selectCursos = document.createElement('select');
+    const recuperoCursos = JSON.parse(localStorage.getItem('arrayCursos'));
+
+    const selectCursos = document.createElement('select');
     selectCursos.className = "form-control";
     selectCursos.id = "select-curso"
 
@@ -196,13 +207,15 @@ const inicializar = () => {
     $('#menuCursos').click(function (e) {
         e.preventDefault();
         $('.contenedor-alumnos').slideUp();
+        $('.mostrar-alumnos').slideUp();
+        $('.agregar-alumno').slideUp();
         $('.contenedor-curso').toggle('slow');
     });
 
     $('#btnAgregarCursos').click(function (e) {
         e.preventDefault();
-        $('.agregar-curso').toggle('slow');
         $('.mostrar-curso').slideUp();
+        $('.agregar-curso').toggle('fast');
     });
 
     $('#agregarCurso').click(function (e) {
@@ -212,21 +225,23 @@ const inicializar = () => {
 
     $('#btnMostrarCursos').click(function (e) {
         e.preventDefault();
-        mostrarCurso();
-        $('.mostrar-curso').toggle('slow');
         $('.agregar-curso').slideUp();
+        $('.mostrar-curso').toggle('fast');
+        mostrarCurso();
     });
 
     $('#menuAlumnos').click(function (e) {
         e.preventDefault();
         $('.contenedor-curso').slideUp();
+        $('.mostrar-curso').slideUp();
+        $('.agregar-curso').slideUp();
         $('.contenedor-alumnos').toggle('slow');
     });
 
     $('#btnAgregarAlumno').click(function (e) {
         e.preventDefault();
         $('.mostrar-alumnos').slideUp();
-        $('.agregar-alumno').toggle('slow');
+        $('.agregar-alumno').toggle('fast');
         rellenarSelectAlumnos(); 
     });
 
@@ -238,7 +253,7 @@ const inicializar = () => {
     $('#btnMostrarAlumnos').click(function (e) {
         e.preventDefault();
         $('.agregar-alumno').slideUp();
-        $('.mostrar-alumnos').toggle('slow');
+        $('.mostrar-alumnos').toggle('fast');
         mostrarPersona();
     });
     
