@@ -121,21 +121,29 @@ header .contenedor-menu {
         .contenedor-info .contenedor-alumnos .mostrar-alumnos button:hover {
           background-color: #d45fc1; }
 
-#modalPersona #spanAlumno {
+#modalPersona #spanAlumno, #modalPersona #spanCursos, #modalCurso #spanAlumno, #modalCurso #spanCursos {
   color: #e63ab2; }
 
-#modalPersona .modal-footer button {
+#modalPersona .modal-footer button, #modalCurso .modal-footer button {
   text-transform: uppercase; }
-  #modalPersona .modal-footer button.btn-agregar {
+  #modalPersona .modal-footer button.btn-agregar, #modalCurso .modal-footer button.btn-agregar {
     background-color: #e63ab2;
     color: #fff;
     width: 7.2rem; }
-  #modalPersona .modal-footer button.btn-eliminar {
+  #modalPersona .modal-footer button.btn-eliminar, #modalCurso .modal-footer button.btn-eliminar {
     background-color: rgba(246, 0, 0, 0.993);
     color: #fff;
     width: 7.2rem; }
-  #modalPersona .modal-footer button.btn-cerrar {
+  #modalPersona .modal-footer button.btn-cerrar, #modalCurso .modal-footer button.btn-cerrar {
     background-color: gray;
     color: #fff;
     width: 7.2rem;
     margin-left: 2rem; }
+  #modalPersona .modal-footer button.btn-cerrarCurso, #modalCurso .modal-footer button.btn-cerrarCurso {
+    background-color: gray;
+    color: #fff;
+    width: 7.2rem; }
+  #modalPersona .modal-footer button.btn-confirmar, #modalCurso .modal-footer button.btn-confirmar {
+    background-color: #e63ab2;
+    color: #fff;
+    width: 7.2rem; }

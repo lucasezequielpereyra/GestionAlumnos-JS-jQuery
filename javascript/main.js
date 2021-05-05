@@ -4,14 +4,24 @@ let cursos = [];
 const urlAlumnos = 'https://lucasezequielpereyra.github.io/coder-js/api/alumnos.json';
 const urlCursos = 'https://lucasezequielpereyra.github.io/coder-js/api/cursos.json';
 
+// Funcion para eliminar cursos del local storage
 const eliminarCursosLS = () => {
     localStorage.removeItem('arrayCursos');
 }
 
+// Funcion para recuperar cursos del localstorage
 const recuperarCursos = () => {
     let recuperoCursos = JSON.parse(localStorage.getItem('arrayCursos'));
     if (recuperoCursos) {
         cursos = recuperoCursos;
+    }
+}
+
+// Funcion para recuperar alumnos del localstorage
+const recuperarPersonas = () => {
+    let recuperoPersonas = JSON.parse(localStorage.getItem('arrayPersonas'));
+    if (recuperoPersonas) {
+        personas = recuperoPersonas;
     }
 }
 
@@ -160,6 +170,8 @@ const modalPersona = (dni) => {
 
 
 const mostrarPersona = () => {
+    recuperarPersonas();
+
     if (document.querySelector('.list-group')) {
         let restabelecerLista = document.querySelector('.list-group');
         restabelecerLista.remove();
@@ -198,11 +210,7 @@ const mostrarPersona = () => {
 }
 
 const agregarPersona = () => {
-
-    let recuperoPersonas = JSON.parse(localStorage.getItem('arrayPersonas'));
-    if (recuperoPersonas) {
-        personas = recuperoPersonas;
-    }
+    recuperarPersonas();
 
     const dni = $('#input-dni').val()
     const nombre = $('#input-nombre').val()
@@ -220,7 +228,6 @@ const agregarPersona = () => {
 }
 
 const agregarCurso = () => {
-
     recuperarCursos();
 
     const id = $('#input-id').val();
@@ -236,23 +243,26 @@ const agregarCurso = () => {
     }
 }
 
-const eliminarCurso = (id) => {
+const eliminarCurso = (id, nombre) => {
     let boolCurso = false;
+
+    let modalCursosHeader = document.querySelector('.modalHC');
+    const spanCursos = document.createElement('span');
+    spanCursos.setAttribute('id', "spanCursos");
+    spanCursos.innerHTML = ` ${nombre}`;
+    modalCursosHeader.appendChild(spanCursos);
+
     $('#modalCurso').modal('show');
     $('.btn-confirmar').click( function (e) {
         e.preventDefault();
         boolCurso = true;
 
         if (boolCurso){
-            let recuperoCursos = JSON.parse(localStorage.getItem('arrayCursos'));
-            if (recuperoCursos) {
-                cursos = recuperoCursos;
-            }
+            eliminarCursosLS();
     
             let c = 0; // asigno variable contador para eliminar indice deseado
             for(let curso of cursos) {
                 if(curso._id == id){
-                    alert('los id son iguales' + id)
                     cursos.splice(c, 1);
                     break;
                 }
@@ -299,7 +309,7 @@ const mostrarCurso = () => {
 
             $(`.${item._id}Curso`).click(function (e) {
                 e.preventDefault();
-                eliminarCurso(item._id);
+                eliminarCurso(item._id, item._nombre);
             });
         }
     } else {

@@ -118,8 +118,8 @@ header {
     }
 }
 
-#modalPersona{
-    #spanAlumno{
+#modalPersona, #modalCurso{
+    #spanAlumno, #spanCursos{
         color: #e63ab2;
     }
 
@@ -143,6 +143,17 @@ header {
                 color: #fff;
                 width: 7.2rem;
                 margin-left: 2rem;
+            }
+            &.btn-cerrarCurso{
+                background-color: rgb(128, 128, 128);
+                color: #fff;
+                width: 7.2rem;
+            }
+
+            &.btn-confirmar{
+                background-color: #e63ab2;
+                color: #fff;
+                width: 7.2rem;
             }
         }
     }
