@@ -246,10 +246,16 @@ const agregarCurso = () => {
 const eliminarCurso = (id, nombre) => {
     let boolCurso = false;
 
+    // ELimino el span para crearlo nuevamente si ya existe
+    let removeSpan = document.querySelector('#spanCursos')
+    if(removeSpan){
+        removeSpan.remove();
+    }
+
     let modalCursosHeader = document.querySelector('.modalHC');
-    const spanCursos = document.createElement('span');
+    let spanCursos = document.createElement('span');
     spanCursos.setAttribute('id', "spanCursos");
-    spanCursos.innerHTML = ` ${nombre}`;
+    spanCursos.textContent = ` ${nombre}`;
     modalCursosHeader.appendChild(spanCursos);
 
     $('#modalCurso').modal('show');
