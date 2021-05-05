@@ -4,6 +4,17 @@ let cursos = [];
 const urlAlumnos = 'https://lucasezequielpereyra.github.io/coder-js/api/alumnos.json';
 const urlCursos = 'https://lucasezequielpereyra.github.io/coder-js/api/cursos.json';
 
+const eliminarCursosLS = () => {
+    localStorage.removeItem('arrayCursos');
+}
+
+const recuperarCursos = () => {
+    let recuperoCursos = JSON.parse(localStorage.getItem('arrayCursos'));
+    if (recuperoCursos) {
+        cursos = recuperoCursos;
+    }
+}
+
 const cargarCursos = (jsonObj) => {
     jsonObj.forEach(jsonItem => {
         const {_id, _nombre, _rubro} = jsonItem;
@@ -118,8 +129,20 @@ const modalPersona = (dni) => {
             modalFooter.className = 'modal-footer';
             modalContent.appendChild(modalFooter);
 
+            const btnFooterAgregar = document.createElement('button');
+            btnFooterAgregar.className = 'btn btn-agregar';
+            btnFooterAgregar.setAttribute('type', 'button');
+            btnFooterAgregar.textContent = 'modificar';
+            modalFooter.appendChild(btnFooterAgregar);
+
+            const btnFooterEliminar = document.createElement('button');
+            btnFooterEliminar.className = 'btn btn-eliminar';
+            btnFooterEliminar.setAttribute('type', 'button');
+            btnFooterEliminar.textContent = 'Eliminar';
+            modalFooter.appendChild(btnFooterEliminar);
+
             const btnFooter = document.createElement('button');
-            btnFooter.className = 'btn btn-secondary';
+            btnFooter.className = 'btn btn-cerrar';
             btnFooter.setAttribute('type', 'button');
             btnFooter.setAttribute('data-dismiss', 'modal');
             btnFooter.textContent = 'Cerrar';
@@ -198,10 +221,7 @@ const agregarPersona = () => {
 
 const agregarCurso = () => {
 
-    let recuperoCursos = JSON.parse(localStorage.getItem('arrayCursos'));
-    if (recuperoCursos) {
-        cursos = recuperoCursos;
-    }
+    recuperarCursos();
 
     const id = $('#input-id').val();
     const nombreCurso = $('#input-nombreCursos').val();
@@ -216,6 +236,37 @@ const agregarCurso = () => {
     }
 }
 
+const eliminarCurso = (id) => {
+    let boolCurso = false;
+    $('#modalCurso').modal('show');
+    $('.btn-confirmar').click( function (e) {
+        e.preventDefault();
+        boolCurso = true;
+
+        if (boolCurso){
+            let recuperoCursos = JSON.parse(localStorage.getItem('arrayCursos'));
+            if (recuperoCursos) {
+                cursos = recuperoCursos;
+            }
+    
+            let c = 0; // asigno variable contador para eliminar indice deseado
+            for(let curso of cursos) {
+                if(curso._id == id){
+                    alert('los id son iguales' + id)
+                    cursos.splice(c, 1);
+                    break;
+                }
+                c++;
+            }
+            eliminarCursosLS();
+            localStorage.setItem('arrayCursos', JSON.stringify(cursos));
+            mostrarCurso();
+        }
+
+        $('#modalCurso').modal('hide');
+    });
+}
+
 const mostrarCurso = () => {
     if (document.querySelector('.list-groupCursos')) {
         let listaCurso = document.querySelector('.list-groupCursos');
@@ -227,6 +278,8 @@ const mostrarCurso = () => {
         restabelecerLista.remove();
     }
 
+    recuperarCursos();
+
     if (JSON.parse(localStorage.getItem('arrayCursos'))) {
         const ul = document.createElement('ul');
         ul.className = "list-group list-groupCursos";
@@ -234,8 +287,20 @@ const mostrarCurso = () => {
         for (let item of JSON.parse(localStorage.getItem('arrayCursos'))) {
             const li = document.createElement('li');
             li.className = "list-group-item";
-            li.textContent = `${item._id} - ${item._nombre} (${item._rubro})`;
+            li.innerHTML = `${item._id} - ${item._nombre} (${item._rubro})`;
+
+            const btnDelCur = document.createElement('button');
+            btnDelCur.type = "button"
+            btnDelCur.className = `${item._id}Curso`;
+            btnDelCur.textContent = "eliminar"
+            li.appendChild(btnDelCur);
+
             $('ul').append(li);
+
+            $(`.${item._id}Curso`).click(function (e) {
+                e.preventDefault();
+                eliminarCurso(item._id);
+            });
         }
     } else {
         alert("No hay cursos en la lista");

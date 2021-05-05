@@ -40,7 +40,8 @@ header .contenedor-menu {
     text-transform: uppercase;
     text-align: center;
     padding-top: 1.5rem;
-    margin: 0; }
+    margin: 0;
+    user-select: none; }
   header .contenedor-menu .menu button {
     background-color: #d45fc1;
     color: #fff;
@@ -78,6 +79,15 @@ header .contenedor-menu {
       margin-top: 2rem;
       overflow: scroll;
       overflow-x: hidden; }
+      .contenedor-info .contenedor-curso .mostrar-curso button {
+        background-color: #e63ab2;
+        color: #fff;
+        font-size: .7rem;
+        padding: .3rem;
+        border-radius: .5rem;
+        margin-left: 2rem; }
+        .contenedor-info .contenedor-curso .mostrar-curso button:hover {
+          background-color: #d45fc1; }
   .contenedor-info .contenedor-alumnos {
     display: none; }
     .contenedor-info .contenedor-alumnos button {
@@ -102,8 +112,30 @@ header .contenedor-menu {
       overflow: scroll;
       overflow-x: hidden; }
       .contenedor-info .contenedor-alumnos .mostrar-alumnos button {
-        margin-left: 4rem;
-        font-size: .8rem; }
+        background-color: #e63ab2;
+        color: #fff;
+        font-size: .7rem;
+        padding: .3rem;
+        border-radius: .5rem;
+        margin-left: 2rem; }
+        .contenedor-info .contenedor-alumnos .mostrar-alumnos button:hover {
+          background-color: #d45fc1; }
 
 #modalPersona #spanAlumno {
   color: #e63ab2; }
+
+#modalPersona .modal-footer button {
+  text-transform: uppercase; }
+  #modalPersona .modal-footer button.btn-agregar {
+    background-color: #e63ab2;
+    color: #fff;
+    width: 7.2rem; }
+  #modalPersona .modal-footer button.btn-eliminar {
+    background-color: rgba(246, 0, 0, 0.993);
+    color: #fff;
+    width: 7.2rem; }
+  #modalPersona .modal-footer button.btn-cerrar {
+    background-color: gray;
+    color: #fff;
+    width: 7.2rem;
+    margin-left: 2rem; }

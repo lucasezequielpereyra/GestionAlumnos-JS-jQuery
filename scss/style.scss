@@ -10,6 +10,7 @@ header {
                 text-align: center;
                 padding-top: 1.5rem;
                 margin: 0;
+                user-select: none;
             }
         }
 
@@ -59,7 +60,19 @@ header {
             width: 50%;
             margin-top: 2rem;
             overflow: scroll;
-            overflow-x: hidden; 
+            overflow-x: hidden;
+
+            button{
+                background-color: #e63ab2;
+                color: #fff;  
+                font-size: .7rem;
+                padding: .3rem;
+                border-radius: .5rem;
+                margin-left: 2rem;
+                &:hover{
+                    background-color: #d45fc1
+                }
+            }
         }
     }
 
@@ -91,8 +104,15 @@ header {
             overflow: scroll;
             overflow-x: hidden; 
             button{
-                margin-left: 4rem;
-                font-size: .8rem;
+                background-color: #e63ab2;
+                color: #fff;  
+                font-size: .7rem;
+                padding: .3rem;
+                border-radius: .5rem;
+                margin-left: 2rem;
+                &:hover{
+                    background-color: #d45fc1
+                }
             }
         }
     }
@@ -101,5 +121,29 @@ header {
 #modalPersona{
     #spanAlumno{
         color: #e63ab2;
+    }
+
+    .modal-footer{
+        button{
+            text-transform: uppercase;
+            &.btn-agregar{
+                background-color: #e63ab2;
+                color: #fff;
+                width: 7.2rem;
+            }
+
+            &.btn-eliminar{
+                background-color: rgba(246, 0, 0, 0.993);
+                color: #fff;  
+                width: 7.2rem;      
+            }
+
+            &.btn-cerrar{
+                background-color: rgb(128, 128, 128);
+                color: #fff;
+                width: 7.2rem;
+                margin-left: 2rem;
+            }
+        }
     }
 }
