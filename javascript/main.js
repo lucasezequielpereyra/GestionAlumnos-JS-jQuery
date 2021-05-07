@@ -4,6 +4,18 @@ let cursos = [];
 const urlAlumnos = 'https://lucasezequielpereyra.github.io/coder-js/api/alumnos.json';
 const urlCursos = 'https://lucasezequielpereyra.github.io/coder-js/api/cursos.json';
 
+
+// Funcion para cargar select cursos por alumno
+const cargarCursosAlumnos = () => {
+    recuperarPersonas();
+
+}
+
+// Funcion para eliminar alumnos del local storage
+const eliminarAlumnosLS = () => {
+    localStorage.removeItem('arrayPersonas');
+}
+
 // Funcion para eliminar cursos del local storage
 const eliminarCursosLS = () => {
     localStorage.removeItem('arrayCursos');
@@ -25,6 +37,7 @@ const recuperarPersonas = () => {
     }
 }
 
+// Funcion para cargar cursos desde archivo externo
 const cargarCursos = (jsonObj) => {
     jsonObj.forEach(jsonItem => {
         const {_id, _nombre, _rubro} = jsonItem;
@@ -33,6 +46,7 @@ const cargarCursos = (jsonObj) => {
     });
 }
 
+// Funcion para cargar alumnos desde archivo externo
 const cargarAlumnos = (jsonObj) => {
     jsonObj.forEach(jsonItem => {
         const {_dni, _nombre, _apellido, _edad, _curso} = jsonItem;
@@ -41,16 +55,26 @@ const cargarAlumnos = (jsonObj) => {
     });
 }
 
+// Funcion para buscar cursos por ID
 const buscarCursos = (id) =>{
-    for(curso of JSON.parse(localStorage.getItem('arrayCursos'))){
+    for(let curso of JSON.parse(localStorage.getItem('arrayCursos'))){
         if(id == curso._id){
             return curso._nombre;
         }
     }
 }
 
-const modalPersona = (dni) => {
+// Funcion para buscar alumnos por dni
+const buscarAlumnos = (dni) =>{
+    for(let alumno of JSON.parse(localStorage.getItem('arrayPersonas'))){
+        if(dni == alumno._dni){
+            return alumno._nombre;
+        }
+    }
+}
 
+// Funcion para crear el modal de cada alumno
+const modalPersona = (dni) => {
     let removeModal = document.querySelector("#modalPersona");
     if (removeModal) {
         removeModal.remove();
@@ -126,10 +150,12 @@ const modalPersona = (dni) => {
                 </input>
             </div>
 
-            <div>
-                <label for="input-alumnoCursos"> Cursos: </label>
-                <input type="text" id"input-alumnoCursos" name="input-alumnoCursos" value="${buscarCursos(persona._curso)}" readonly>
-                </input>
+            <div id="contenedorCursosAlumno">
+                <label for="select-alumnoCursos"> Cursos: </label>
+                <select id"input-alumnoCursos" name="select-alumnoCursos" readonly>
+                    <option>${buscarCursos(persona._curso)}</option>
+                </select>
+                <button type="button" id="btnEliminarCurso">Eliminar</button>
             </div>
             
             `;
@@ -168,7 +194,30 @@ const modalPersona = (dni) => {
     }
 }
 
+// Funcion para agregar alumnos
+const agregarPersona = () => {
+    recuperarPersonas();
 
+    const dni = $('#input-dni').val()
+    const nombre = $('#input-nombre').val()
+    const apellido = $('#input-apellido').val()
+    const edad = $('#input-edad').val()
+    const curso = $('#select-curso').val();
+
+    if(buscarAlumnos(dni)){
+        alert('El dni ingresado ya se encuentra registrado');
+    }
+
+    else if (dni != "" && !(isNaN(dni)) && nombre != "" && apellido != "" && edad != "" && !(isNaN(edad))) {
+        personas.push(new Personas(parseInt(dni), nombre, apellido, parseInt(edad), curso.substring(0, 3)));
+        localStorage.setItem('arrayPersonas', JSON.stringify(personas));
+        document.querySelector('#formPersonas').reset();
+    } else {
+        alert("Error al ingresar los datos");
+    }
+}
+
+// Funcion para mostrar lista de alumnos
 const mostrarPersona = () => {
     recuperarPersonas();
 
@@ -209,24 +258,29 @@ const mostrarPersona = () => {
     }
 }
 
-const agregarPersona = () => {
-    recuperarPersonas();
+// Funcion para llenar la lista de cursos disponibles
+const rellenarSelectAlumnos = () => {
+    let removeCursos = document.querySelector('#select-curso')
+    if (removeCursos) {
+        removeCursos.remove();
+    }
 
-    const dni = $('#input-dni').val()
-    const nombre = $('#input-nombre').val()
-    const apellido = $('#input-apellido').val()
-    const edad = $('#input-edad').val()
-    const curso = $('#select-curso').val();
+    const recuperoCursos = JSON.parse(localStorage.getItem('arrayCursos'));
 
-    if (dni != "" && !(isNaN(dni)) && nombre != "" && apellido != "" && edad != "" && !(isNaN(edad))) {
-        personas.push(new Personas(parseInt(dni), nombre, apellido, parseInt(edad), curso.substring(0, 3)));
-        localStorage.setItem('arrayPersonas', JSON.stringify(personas));
-        document.querySelector('#formPersonas').reset();
-    } else {
-        alert("Error al ingresar los datos");
+    const selectCursos = document.createElement('select');
+    selectCursos.className = "form-control";
+    selectCursos.id = "select-curso"
+
+    $('#form-select').append(selectCursos);
+
+    for (item of recuperoCursos) {
+        let option = document.createElement('option');
+        option.textContent = `${item._id};${item._nombre};${item._rubro}`
+        $('#select-curso').append(option);
     }
 }
 
+// Funcion para agregar cursos
 const agregarCurso = () => {
     recuperarCursos();
 
@@ -234,15 +288,25 @@ const agregarCurso = () => {
     const nombreCurso = $('#input-nombreCursos').val();
     const rubro = $('#input-rubro').val();
 
-    if ((id != "" && nombreCurso != "" && rubro != "")) {
+    if(id.length < 3) {
+        alert('El id debe tener 3 numeros')
+    } 
+
+    else if(buscarCursos(id)){
+        alert('El id del curso ya se encuentra registrado');
+    }
+    
+    else if ((id != "" && nombreCurso != "" && rubro != "")) {
         cursos.push(new Cursos(id, nombreCurso, rubro));
         localStorage.setItem('arrayCursos', JSON.stringify(cursos));
         document.querySelector('#formularioCursos').reset();
-    } else {
+    } 
+    else {
         alert("Error al ingresar los datos");
     }
 }
 
+// Funcion para eliminar cursos
 const eliminarCurso = (id, nombre) => {
     let boolCurso = false;
 
@@ -283,6 +347,7 @@ const eliminarCurso = (id, nombre) => {
     });
 }
 
+// Funcion para mostrar listas de cursos
 const mostrarCurso = () => {
     if (document.querySelector('.list-groupCursos')) {
         let listaCurso = document.querySelector('.list-groupCursos');
@@ -323,29 +388,9 @@ const mostrarCurso = () => {
     }
 }
 
-const rellenarSelectAlumnos = () => {
-    let removeCursos = document.querySelector('#select-curso')
-    if (removeCursos) {
-        removeCursos.remove();
-    }
-
-    const recuperoCursos = JSON.parse(localStorage.getItem('arrayCursos'));
-
-    const selectCursos = document.createElement('select');
-    selectCursos.className = "form-control";
-    selectCursos.id = "select-curso"
-
-    $('#form-select').append(selectCursos);
-
-    for (item of recuperoCursos) {
-        let option = document.createElement('option');
-        option.textContent = `${item._id};${item._nombre};${item._rubro}`
-        $('#select-curso').append(option);
-    }
-}
-
 const inicializar = () => {
 
+    // Acciones de los botones en la interfaz general del sistema
     $('#menuCursos').click(function (e) {
         e.preventDefault();
         $('.contenedor-alumnos').slideUp();
@@ -399,6 +444,13 @@ const inicializar = () => {
         mostrarPersona();
     });
 
+    // Acciones con los cursos del alumno
+    $('#btnAgregarCurso').click( function (e) {
+        e.preventDefault();
+
+    });
+
+    // Acciones para precarga de datos
     if (!JSON.parse(localStorage.getItem('arrayCursos')) || !JSON.parse(localStorage.getItem('arrayPersonas')) ){
         $('#precargaDatos').toggle('fast');
     }
@@ -418,7 +470,6 @@ const inicializar = () => {
 
         $('#precargaDatos').toggle('slow');
     });
-
 }
 
 $(() => inicializar()); // Cargo el documento utilizando selector de jQuery
