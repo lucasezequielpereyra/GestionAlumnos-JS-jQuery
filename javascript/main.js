@@ -55,11 +55,11 @@ const cargarAlumnos = (jsonObj) => {
     });
 }
 
-// Funcion para buscar cursos por ID
-const buscarCursos = (id) =>{
+// Funcion para buscar cursos por Nombre
+const buscarCursosNombre = (nombre) =>{
     for(let curso of JSON.parse(localStorage.getItem('arrayCursos'))){
-        if(id == curso._id){
-            return curso._nombre;
+        if(nombre == curso._nombre){
+            return curso._id;
         }
     }
 }
@@ -217,7 +217,6 @@ const modalPersona = (dni, nombre, apellido, edad, curso) => {
             <div id="contenedorCursosAlumno">
                 <label for="select-alumnoCursos"> Cursos: </label>
                 <select id="select-alumnoCursos" name="select-alumnoCursos" readonly>
-                    <option>${buscarCursos(persona._curso)}</option>
                 </select>
                 <button type="button" id="btnEliminarCurso">Eliminar</button>
             </div>
@@ -258,8 +257,11 @@ const modalPersona = (dni, nombre, apellido, edad, curso) => {
             const body = document.querySelector("#body");
             body.appendChild(modalFade);
 
+            // Lleno el select de cursos inscriptos por el alumno
+            llenarSelectCursos(persona._curso);
+            
             // Lleno el select de cursos disponibles para agregar al alumno
-            llenarSelectCursosAdd(curso);
+            llenarSelectCursosAdd(persona._curso);
 
             $('#modalPersona').modal('show');
 
@@ -285,10 +287,19 @@ const modalPersona = (dni, nombre, apellido, edad, curso) => {
             // Boton para llamar a la funcion agregar curso
             $('#btnAgregarCurso').click(function (e) {
                 e.preventDefault();
+                recuperarPersonas();
+
+                for(let persona of personas){
+                    if(dni == persona._dni){
+                        persona._curso += `,${buscarCursosNombre($('#select-alumnoCursosAdd').val())}`;
+                        break;
+                    }
+                }
                 
+                localStorage.setItem('arrayPersonas', JSON.stringify(personas));
             });
 
-            break;
+            break; 
         }
     }
 }
@@ -352,6 +363,7 @@ const cambiarValorAlumno = (dni, nombre, apellido, edad) => {
         }
     }
 
+    eliminarAlumnosLS();
     localStorage.setItem('arrayPersonas', JSON.stringify(personas));
     $('#modalMAlumnos').modal('hide');
     $('#modalPersona').modal('show');
@@ -403,15 +415,30 @@ const eliminarAlumnos = (dni, nombre, apellido) => {
     });
 }
 
+// Funcion para rellenar select de cursos por alumno
+const llenarSelectCursos = (id) =>{
+    let arrayId = id.split(',');
+    for(let item of arrayId){
+        for(let curso of JSON.parse(localStorage.getItem('arrayCursos'))){
+            if(item == curso._id){
+                let cursoOption = document.createElement('option');
+                cursoOption.className = curso._id;
+                cursoOption.textContent = curso._nombre;
+
+                $('#select-alumnoCursos').append(cursoOption);
+            } 
+        } 
+    }
+}
+
+// Funcion para llenar el select de los cursos que se pueden adicionar a un alumno
 const llenarSelectCursosAdd = (id) => {
     for (let curso of JSON.parse(localStorage.getItem('arrayCursos'))){
-        if(id != curso._id){
-            let cursoOption = document.createElement('option');
-            cursoOption.className = curso._id;
-            cursoOption.textContent = curso._nombre;
-
-            $('#select-alumnoCursosAdd').append(cursoOption);
-        }
+        let cursoOption = document.createElement('option');
+        cursoOption.className = curso._id;
+        cursoOption.textContent = curso._nombre;
+    
+        $('#select-alumnoCursosAdd').append(cursoOption);
     }
 }
 
@@ -500,6 +527,7 @@ const mostrarCurso = () => {
                 e.preventDefault();
                 eliminarCurso(item._id, item._nombre);
             });
+            
         }
     } else {
         alert("No hay cursos en la lista");
@@ -508,8 +536,6 @@ const mostrarCurso = () => {
 
 // Funcion para eliminar cursos
 const eliminarCurso = (id, nombre) => {
-    let boolCurso = false;
-
     // ELimino el span para crearlo nuevamente si ya existe
     let removeSpan = document.querySelector('#spanCursos')
     if(removeSpan){
@@ -525,25 +551,25 @@ const eliminarCurso = (id, nombre) => {
     $('#modalCurso').modal('show');
     $('.btn-confirmar').click( function (e) {
         e.preventDefault();
-        boolCurso = true;
 
-        if (boolCurso){
-            eliminarCursosLS();
-    
-            let c = 0; // asigno variable contador para eliminar indice deseado
-            for(let curso of cursos) {
-                if(curso._id == id){
-                    cursos.splice(c, 1);
-                    break;
-                }
-                c++;
+        let c = 0; // asigno variable contador para eliminar indice deseado
+        for(let curso of cursos) {
+            if(curso._id == id){
+                cursos.splice(c, 1);
+                eliminarCursosLS();
+                localStorage.setItem('arrayCursos', JSON.stringify(cursos));
+                recuperarCursos();
+                break;
             }
-            eliminarCursosLS();
-            localStorage.setItem('arrayCursos', JSON.stringify(cursos));
-            mostrarCurso();
+            c++;
         }
+        mostrarCurso();
 
         $('#modalCurso').modal('hide');
+    });
+
+    $('.btn-cerrarCurso').click( function () {
+        mostrarCurso();
     });
 }
 
