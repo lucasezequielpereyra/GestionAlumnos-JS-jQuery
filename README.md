@@ -1,5 +1,5 @@
 # Sistema de Cursos
-_Sistema de Cursos - CoderHouse Page_
+_Sistema de Cursos - CoderHouse Single-Page_
 
 * [Preview](https://lucasezequielpereyra.github.io/coder-js/)
 
