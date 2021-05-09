@@ -121,29 +121,33 @@ header .contenedor-menu {
         .contenedor-info .contenedor-alumnos .mostrar-alumnos button:hover {
           background-color: #d45fc1; }
 
-#modalPersona #spanAlumno, #modalPersona #spanCursos, #modalPersona #spanAlumnos, #modalCurso #spanAlumno, #modalCurso #spanCursos, #modalCurso #spanAlumnos, #modalEAlumnos #spanAlumno, #modalEAlumnos #spanCursos, #modalEAlumnos #spanAlumnos {
+#modalPersona .modal-header #spanAlumno, #modalPersona .modal-header #spanCursos, #modalPersona .modal-header #spanAlumnos, #modalPersona .modal-header #spanModificarA, #modalCurso .modal-header #spanAlumno, #modalCurso .modal-header #spanCursos, #modalCurso .modal-header #spanAlumnos, #modalCurso .modal-header #spanModificarA, #modalEAlumnos .modal-header #spanAlumno, #modalEAlumnos .modal-header #spanCursos, #modalEAlumnos .modal-header #spanAlumnos, #modalEAlumnos .modal-header #spanModificarA, #modalMAlumnos .modal-header #spanAlumno, #modalMAlumnos .modal-header #spanCursos, #modalMAlumnos .modal-header #spanAlumnos, #modalMAlumnos .modal-header #spanModificarA {
   color: #e63ab2; }
 
-#modalPersona .modal-footer button, #modalCurso .modal-footer button, #modalEAlumnos .modal-footer button {
+#modalPersona .modal-body .strong, #modalCurso .modal-body .strong, #modalEAlumnos .modal-body .strong, #modalMAlumnos .modal-body .strong {
+  font-weight: bold;
+  margin-top: 1rem; }
+
+#modalPersona .modal-footer button, #modalCurso .modal-footer button, #modalEAlumnos .modal-footer button, #modalMAlumnos .modal-footer button {
   text-transform: uppercase; }
-  #modalPersona .modal-footer button.btn-agregar, #modalCurso .modal-footer button.btn-agregar, #modalEAlumnos .modal-footer button.btn-agregar {
+  #modalPersona .modal-footer button.btn-agregar, #modalCurso .modal-footer button.btn-agregar, #modalEAlumnos .modal-footer button.btn-agregar, #modalMAlumnos .modal-footer button.btn-agregar {
     background-color: #e63ab2;
     color: #fff;
     width: 7.2rem; }
-  #modalPersona .modal-footer button.btn-eliminar, #modalCurso .modal-footer button.btn-eliminar, #modalEAlumnos .modal-footer button.btn-eliminar {
+  #modalPersona .modal-footer button.btn-eliminar, #modalCurso .modal-footer button.btn-eliminar, #modalEAlumnos .modal-footer button.btn-eliminar, #modalMAlumnos .modal-footer button.btn-eliminar {
     background-color: rgba(246, 0, 0, 0.993);
     color: #fff;
     width: 7.2rem; }
-  #modalPersona .modal-footer button.btn-cerrar, #modalCurso .modal-footer button.btn-cerrar, #modalEAlumnos .modal-footer button.btn-cerrar {
+  #modalPersona .modal-footer button.btn-cerrar, #modalCurso .modal-footer button.btn-cerrar, #modalEAlumnos .modal-footer button.btn-cerrar, #modalMAlumnos .modal-footer button.btn-cerrar {
     background-color: gray;
     color: #fff;
     width: 7.2rem;
     margin-left: 2rem; }
-  #modalPersona .modal-footer button.btn-cerrarCurso, #modalPersona .modal-footer button.btn-cerrarAlumno, #modalCurso .modal-footer button.btn-cerrarCurso, #modalCurso .modal-footer button.btn-cerrarAlumno, #modalEAlumnos .modal-footer button.btn-cerrarCurso, #modalEAlumnos .modal-footer button.btn-cerrarAlumno {
+  #modalPersona .modal-footer button.btn-cerrar, #modalCurso .modal-footer button.btn-cerrar, #modalEAlumnos .modal-footer button.btn-cerrar, #modalMAlumnos .modal-footer button.btn-cerrar {
     background-color: gray;
     color: #fff;
     width: 7.2rem; }
-  #modalPersona .modal-footer button.btn-confirmar, #modalPersona .modal-footer button.btn-confirmarAlumno, #modalCurso .modal-footer button.btn-confirmar, #modalCurso .modal-footer button.btn-confirmarAlumno, #modalEAlumnos .modal-footer button.btn-confirmar, #modalEAlumnos .modal-footer button.btn-confirmarAlumno {
+  #modalPersona .modal-footer button.btn-ok, #modalCurso .modal-footer button.btn-ok, #modalEAlumnos .modal-footer button.btn-ok, #modalMAlumnos .modal-footer button.btn-ok {
     background-color: #e63ab2;
     color: #fff;
     width: 7.2rem; }

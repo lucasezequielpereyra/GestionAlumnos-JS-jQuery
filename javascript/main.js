@@ -192,31 +192,31 @@ const modalPersona = (dni, nombre, apellido) => {
             modalBody.innerHTML = `
             <div>
                 <label for="input-alumnoDni"> DNI: </label>
-                <input type="text" id"input-alumnoDni" name="input-alumnoDni" value="${persona._dni}" readonly>
+                <input type="text" id="input-alumnoDni" name="input-alumnoDni" value="${persona._dni}" readonly>
                 </input>
             </div>
 
             <div>
                 <label for="input-alumnoNombre"> Nombre: </label>
-                <input type="text" id"input-alumnoNombre" name="input-alumnoNombre" value="${persona._nombre}">
+                <input type="text" id="input-alumnoNombre" name="input-alumnoNombre" value="${persona._nombre}">
                 </input>
             </div>
 
             <div>
                 <label for="input-alumnoApellido"> Apellido: </label>
-                <input type="text" id"input-alumnoApellido" name="input-alumnoApellido" value="${persona._apellido}">
+                <input type="text" id="input-alumnoApellido" name="input-alumnoApellido" value="${persona._apellido}">
                 </input>
             </div>
             
             <div>
                 <label for="input-alumnoApellido"> Edad: </label>
-                <input type="text" id"input-alumnoEdad" name="input-aliumnoEdad" value="${persona._edad}">
+                <input type="text" id="input-alumnoEdad" name="input-aliumnoEdad" value="${persona._edad}">
                 </input>
             </div>
 
             <div id="contenedorCursosAlumno">
                 <label for="select-alumnoCursos"> Cursos: </label>
-                <select id"input-alumnoCursos" name="select-alumnoCursos" readonly>
+                <select id="input-alumnoCursos" name="select-alumnoCursos" readonly>
                     <option>${buscarCursos(persona._curso)}</option>
                 </select>
                 <button type="button" id="btnEliminarCurso">Eliminar</button>
@@ -230,7 +230,7 @@ const modalPersona = (dni, nombre, apellido) => {
             modalContent.appendChild(modalFooter);
 
             const btnFooterAgregar = document.createElement('button');
-            btnFooterAgregar.className = 'btn btn-agregar';
+            btnFooterAgregar.className = 'btn btn-modificar btn-ok';
             btnFooterAgregar.setAttribute('type', 'button');
             btnFooterAgregar.textContent = 'modificar';
             modalFooter.appendChild(btnFooterAgregar);
@@ -253,16 +253,91 @@ const modalPersona = (dni, nombre, apellido) => {
 
             $('#modalPersona').modal('show');
 
-            // Llamo la funcion para eliminar alumno
-            $(`.btn-eliminar`).click(function (e) {
+            // Llamo funcion para eliminar alumno
+            $('.btn-eliminar').click(function (e) {
                 e.preventDefault();
                 $('#modalPersona').modal('hide');
                 eliminarAlumnos(dni, nombre, apellido);
             });
 
+            // Llamo funcion para modificar alumno
+            $('.btn-modificar').click(function (e) {
+                e.preventDefault();
+
+                $('#modalPersona').modal('hide');
+
+                modificarAlumnos(dni, $('#input-alumnoNombre').val(), $('#input-alumnoApellido').val(), $('#input-alumnoEdad').val() );
+            });
+
             break;
         }
     }
+}
+
+const modificarAlumnos = (dni, nombreNuevo, apellidoNuevo, edadNueva) => {
+    headerModal = document.querySelector('#modalMAlumnosLabel');
+    headerModal.innerHTML = `¿Modificar Alumno <span id="spanModificarA">${dni}</span>?`;
+
+    // Si ya existe elimino body del modal para que no se duplique info
+    let eliminoBody = document.querySelector(".modal-body-modif");
+    if(eliminoBody){
+        eliminoBody.remove()
+    }
+
+    let modalBodyModificar = document.createElement('div');
+    modalBodyModificar.setAttribute('id', 'modificarAlumnosBody');
+    modalBodyModificar.className = 'modal-body modal-body-modif';
+    
+    let modalAlumnosFooter = document.querySelector('#footerModificarA');
+    let parentNode = modalAlumnosFooter.parentNode;
+
+    parentNode.insertBefore(modalBodyModificar, modalAlumnosFooter);
+    
+    let h5 = document.createElement('h5');
+    h5.textContent = 'Datos nuevos:'
+    modalBodyModificar.appendChild(h5);
+
+    let p = document.createElement('p');
+    p.innerHTML = `<span class="strong">Nombre:</span> ${nombreNuevo}`;
+    modalBodyModificar.appendChild(p);
+
+    let p2 = document.createElement('p');
+    p2.innerHTML = `<span class="strong">Apellido:</span> ${apellidoNuevo}`;
+    modalBodyModificar.appendChild(p2);
+
+    let p3 = document.createElement('p');
+    p3.innerHTML = `<span class="strong">Apellido:</span> ${edadNueva}`;
+    modalBodyModificar.appendChild(p3);
+
+    $('#modalMAlumnos').modal('show');
+
+    $('.btn-confirmarMod').click(function (e){
+        e.preventDefault();
+        cambiarValorAlumno(dni, nombreNuevo, apellidoNuevo, edadNueva);
+    });
+
+    $('.btn-cerrarMod').click(function (e){
+        $('#modalPersona').modal('show');
+    });
+}
+
+const cambiarValorAlumno = (dni, nombre, apellido, edad) => {
+    recuperarPersonas();
+
+    for(let persona of personas){
+        if(dni == persona._dni){
+            persona._nombre = nombre;
+            persona._apellido = apellido;
+            persona._edad = edad;
+            break;
+        }
+    }
+
+    localStorage.setItem('arrayPersonas', JSON.stringify(personas));
+    $('#modalMAlumnos').modal('hide');
+    $('#modalPersona').modal('show');
+
+    mostrarPersona();
 }
 
 const eliminarAlumnos = (dni, nombre, apellido) => {
@@ -335,8 +410,8 @@ const agregarCurso = () => {
     const nombreCurso = $('#input-nombreCursos').val();
     const rubro = $('#input-rubro').val();
 
-    if(id.length < 3) {
-        alert('El id debe tener 3 numeros')
+    if(id.length != 3) {
+        alert('El id debe tener 3 digitos')
     } 
 
     else if(buscarCursos(id)){
@@ -408,7 +483,7 @@ const eliminarCurso = (id, nombre) => {
     let modalCursosHeader = document.querySelector('.modalHC');
     let spanCursos = document.createElement('span');
     spanCursos.setAttribute('id', "spanCursos");
-    spanCursos.textContent = ` ${nombre}`;
+    spanCursos.textContent = ` ${id} - ${nombre}`;
     modalCursosHeader.appendChild(spanCursos);
 
     $('#modalCurso').modal('show');

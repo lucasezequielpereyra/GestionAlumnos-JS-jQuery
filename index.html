@@ -139,8 +139,8 @@
                     </button>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-confirmar">Si</button>
-                    <button type="button" class="btn btn-cerrarCurso" data-dismiss="modal">no</button>
+                    <button type="button" class="btn btn-confirmar btn-ok">Si</button>
+                    <button type="button" class="btn btn-cerrarCurso btn-cerrar" data-dismiss="modal">no</button>
                 </div>
             </div>
         </div>
@@ -157,8 +157,26 @@
                     </button>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-confirmarAlumno">Si</button>
-                    <button type="button" class="btn btn-cerrarAlumno" data-dismiss="modal">no</button>
+                    <button type="button" class="btn btn-confirmarAlumno btn-ok">Si</button>
+                    <button type="button" class="btn btn-cerrarAlumno btn-cerrar" data-dismiss="modal">no</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Modificar Alumnos-->
+    <div class="modal fade" id="modalMAlumnos" tabindex="-1" aria-labelledby="modalMAlumnosLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" id="contentModal">
+                <div class="modal-header">
+                    <h5 class="modal-title moodalHMA" id="modalMAlumnosLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer" id="footerModificarA">
+                    <button type="button" class="btn btn-confirmarMod btn-ok">Si</button>
+                    <button type="button" class="btn btn-cerrarMod btn-cerrar" data-dismiss="modal">no</button>
                 </div>
             </div>
         </div>
