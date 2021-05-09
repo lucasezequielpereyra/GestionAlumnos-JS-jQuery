@@ -296,6 +296,18 @@ const modalPersona = (dni, nombre, apellido, edad, curso) => {
                 }
             });
 
+            // Boton para llamar a la funcion eliminar curso
+            $('#btnEliminarCurso').click(function (e){
+                e.preventDefault();
+
+                recuperarPersonas();
+                recuperarCursos();
+
+                eliminarCursoPersona(persona._dni, buscarCursosNombre($('#select-alumnoCursos').val()))
+
+                $('#modalPersona').modal('hide');
+            });
+
             // Boton para llamar a la funcion agregar curso
             $('#btnAgregarCurso').click(function (e) {
                 e.preventDefault();
@@ -430,6 +442,29 @@ const eliminarAlumnos = (dni, nombre, apellido) => {
         e.preventDefault();
         $('#modalPersona').modal('show');
     });
+}
+
+const eliminarCursoPersona = (dniPersona, idCurso) => {
+
+    for(let persona of personas){
+        if(dniPersona == persona._dni){
+            let arrayCurso = persona._curso.split(',');
+
+            let c = 0 // Contador para eliminar el indice deseado
+            for(let item of arrayCurso){
+                if(item == idCurso){
+                    arrayCurso.splice(c, 1);
+                    persona._curso = arrayCurso.toString();
+                    eliminarAlumnosLS();
+                    localStorage.setItem('arrayPersonas', JSON.stringify(personas));
+                    recuperarPersonas();
+
+                    break;
+                }
+                c++;
+            }
+        }
+    }
 }
 
 // Funcion para rellenar select de cursos por alumno
