@@ -416,6 +416,12 @@ const eliminarAlumnos = (dni, nombre, apellido) => {
     modalALumnosHeader.appendChild(spanAlumnos);
 
     $('#modalEAlumnos').modal('show');
+
+    $('.btn-cerrarAlumno').click(function(e){
+        e.preventDefault();
+        window.location.reload(); // Solucion temporal por bug
+    });
+
     $('.btn-confirmarAlumno').click( function (e) {
         e.preventDefault();
         boolAlumno = true;
@@ -601,6 +607,12 @@ const eliminarCurso = (id, nombre) => {
     modalCursosHeader.appendChild(spanCursos);
 
     $('#modalCurso').modal('show');
+
+    $('.btn-cerrarCurso').click( function (e) {
+        e.preventDefault();
+        window.location.reload(); // Solucion temporal por bug
+    });
+
     $('.btn-confirmar').click( function (e) {
         e.preventDefault();
 
@@ -620,9 +632,6 @@ const eliminarCurso = (id, nombre) => {
         $('#modalCurso').modal('hide');
     });
 
-    $('.btn-cerrarCurso').click( function () {
-        mostrarCurso();
-    });
 }
 
 const inicializar = () => {
