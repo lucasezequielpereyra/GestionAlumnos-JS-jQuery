@@ -129,7 +129,7 @@ const mostrarPersona = () => {
 
             $(`.${alumno._dni}`).click(function (e) {
                 e.preventDefault();
-                modalPersona(alumno._dni, alumno._nombre, alumno._apellido);
+                modalPersona(alumno._dni, alumno._nombre, alumno._apellido, alumno._edad, alumno._curso);
             });
         }
     } else {
@@ -138,7 +138,7 @@ const mostrarPersona = () => {
 }
 
 // Funcion para crear el modal de cada alumno
-const modalPersona = (dni, nombre, apellido) => {
+const modalPersona = (dni, nombre, apellido, edad, curso) => {
     let removeModal = document.querySelector("#modalPersona");
     if (removeModal) {
         removeModal.remove();
@@ -216,10 +216,17 @@ const modalPersona = (dni, nombre, apellido) => {
 
             <div id="contenedorCursosAlumno">
                 <label for="select-alumnoCursos"> Cursos: </label>
-                <select id="input-alumnoCursos" name="select-alumnoCursos" readonly>
+                <select id="select-alumnoCursos" name="select-alumnoCursos" readonly>
                     <option>${buscarCursos(persona._curso)}</option>
                 </select>
                 <button type="button" id="btnEliminarCurso">Eliminar</button>
+            </div>
+
+            <div id="contenedorAddCursosAlumno">
+                <label for="select-alumnoCursosAdd"> Agregar Curso: </label>
+                <select id="select-alumnoCursosAdd" name="select-alumnoCursosAdd" readonly>
+                </select>
+                <button type="button" id="btnAgregarCurso">Agregar</button>
             </div>
             
             `;
@@ -251,22 +258,34 @@ const modalPersona = (dni, nombre, apellido) => {
             const body = document.querySelector("#body");
             body.appendChild(modalFade);
 
+            // Lleno el select de cursos disponibles para agregar al alumno
+            llenarSelectCursosAdd(curso);
+
             $('#modalPersona').modal('show');
 
-            // Llamo funcion para eliminar alumno
+            // Boton para llamar a la accion eliminar alumno
             $('.btn-eliminar').click(function (e) {
                 e.preventDefault();
                 $('#modalPersona').modal('hide');
                 eliminarAlumnos(dni, nombre, apellido);
             });
 
-            // Llamo funcion para modificar alumno
+            // Boton para llamar a la funcion modificar alumno
             $('.btn-modificar').click(function (e) {
                 e.preventDefault();
 
-                $('#modalPersona').modal('hide');
+                if(nombre == $('#input-alumnoNombre').val() && apellido == $('#input-alumnoApellido').val() && edad == $('#input-alumnoEdad').val() ){
+                    alert('Para modificar debe cambiar al menos uno de los valores')
+                }else{
+                    $('#modalPersona').modal('hide');
+                    modificarAlumnos(dni, $('#input-alumnoNombre').val(), $('#input-alumnoApellido').val(), $('#input-alumnoEdad').val() );
+                }
+            });
 
-                modificarAlumnos(dni, $('#input-alumnoNombre').val(), $('#input-alumnoApellido').val(), $('#input-alumnoEdad').val() );
+            // Boton para llamar a la funcion agregar curso
+            $('#btnAgregarCurso').click(function (e) {
+                e.preventDefault();
+                
             });
 
             break;
@@ -306,7 +325,7 @@ const modificarAlumnos = (dni, nombreNuevo, apellidoNuevo, edadNueva) => {
     modalBodyModificar.appendChild(p2);
 
     let p3 = document.createElement('p');
-    p3.innerHTML = `<span class="strong">Apellido:</span> ${edadNueva}`;
+    p3.innerHTML = `<span class="strong">Edad:</span> ${edadNueva}`;
     modalBodyModificar.appendChild(p3);
 
     $('#modalMAlumnos').modal('show');
@@ -375,10 +394,27 @@ const eliminarAlumnos = (dni, nombre, apellido) => {
             localStorage.setItem('arrayPersonas', JSON.stringify(personas));
             mostrarPersona();
         }
-
         $('#modalEAlumnos').modal('hide');
     });
+
+    $('.btn-cerrarAlumno').click(function (e) {
+        e.preventDefault();
+        $('#modalPersona').modal('show');
+    });
 }
+
+const llenarSelectCursosAdd = (id) => {
+    for (let curso of JSON.parse(localStorage.getItem('arrayCursos'))){
+        if(id != curso._id){
+            let cursoOption = document.createElement('option');
+            cursoOption.className = curso._id;
+            cursoOption.textContent = curso._nombre;
+
+            $('#select-alumnoCursosAdd').append(cursoOption);
+        }
+    }
+}
+
 
 // Funcion para llenar la lista de cursos disponibles
 const rellenarSelectAlumnos = () => {

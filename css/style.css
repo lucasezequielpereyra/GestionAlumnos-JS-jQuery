@@ -33,6 +33,13 @@ h6 {
   border: #fff !important;
   box-shadow: none !important; }
 
+label {
+  display: inline-block;
+  width: 9rem; }
+
+button {
+  user-select: none; }
+
 header .contenedor-menu {
   background: url(/assets/fondo.png), linear-gradient(to left, #d45fc1, #e63ab2); }
   header .contenedor-menu .titulo h1 {
@@ -128,6 +135,17 @@ header .contenedor-menu {
   font-weight: bold;
   margin-top: 1rem; }
 
+#modalPersona .modal-body button, #modalCurso .modal-body button, #modalEAlumnos .modal-body button, #modalMAlumnos .modal-body button {
+  background-color: #d45fc1;
+  border: 1px #e63ab2;
+  border-radius: 3px;
+  padding: 3px;
+  color: #fff;
+  text-transform: uppercase; }
+
+#modalPersona .modal-body #select-alumnoCursos, #modalCurso .modal-body #select-alumnoCursos, #modalEAlumnos .modal-body #select-alumnoCursos, #modalMAlumnos .modal-body #select-alumnoCursos {
+  margin-bottom: 2rem; }
+
 #modalPersona .modal-footer button, #modalCurso .modal-footer button, #modalEAlumnos .modal-footer button, #modalMAlumnos .modal-footer button {
   text-transform: uppercase; }
   #modalPersona .modal-footer button.btn-agregar, #modalCurso .modal-footer button.btn-agregar, #modalEAlumnos .modal-footer button.btn-agregar, #modalMAlumnos .modal-footer button.btn-agregar {
@@ -151,3 +169,14 @@ header .contenedor-menu {
     background-color: #e63ab2;
     color: #fff;
     width: 7.2rem; }
+
+footer {
+  background: url(/assets/fondo.png), linear-gradient(to left, #d45fc1, #e63ab2);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2rem;
+  color: white; }
+  footer h5 {
+    text-align: center;
+    padding-top: .2rem; }
