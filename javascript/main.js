@@ -73,8 +73,72 @@ const buscarAlumnos = (dni) =>{
     }
 }
 
+// Funcion para agregar alumnos
+const agregarPersona = () => {
+    recuperarPersonas();
+
+    const dni = $('#input-dni').val()
+    const nombre = $('#input-nombre').val()
+    const apellido = $('#input-apellido').val()
+    const edad = $('#input-edad').val()
+    const curso = $('#select-curso').val();
+
+    if(buscarAlumnos(dni)){
+        alert('El dni ingresado ya se encuentra registrado');
+    }
+
+    else if (dni != "" && !(isNaN(dni)) && nombre != "" && apellido != "" && edad != "" && !(isNaN(edad))) {
+        personas.push(new Personas(parseInt(dni), nombre, apellido, parseInt(edad), curso.substring(0, 3)));
+        localStorage.setItem('arrayPersonas', JSON.stringify(personas));
+        document.querySelector('#formPersonas').reset();
+    } else {
+        alert("Error al ingresar los datos");
+    }
+}
+
+// Funcion para mostrar lista de alumnos
+const mostrarPersona = () => {
+    recuperarPersonas();
+
+    if (document.querySelector('.list-group')) {
+        let restabelecerLista = document.querySelector('.list-group');
+        restabelecerLista.remove();
+    }
+
+    if (document.querySelector('.list-groupCursos')) {
+        let listaCurso = document.querySelector('.list-groupCursos');
+        listaCurso.remove();
+    }
+
+    if (JSON.parse(localStorage.getItem('arrayPersonas'))) {
+        const ul = document.createElement('ul');
+        ul.className = "list-group";
+        $('.mostrar-alumnos').append(ul);
+        for (let alumno of JSON.parse(localStorage.getItem('arrayPersonas'))) {
+            const li = document.createElement('li');
+            li.className = "list-group-item";
+            li.innerHTML = `${alumno._nombre} ${alumno._apellido}`;
+
+            const btn = document.createElement('button');
+            btn.type = "button"
+            btn.className = `${alumno._dni}`;
+            btn.textContent = "Ver"
+            li.appendChild(btn);
+
+            $('ul').append(li);
+
+            $(`.${alumno._dni}`).click(function (e) {
+                e.preventDefault();
+                modalPersona(alumno._dni, alumno._nombre, alumno._apellido);
+            });
+        }
+    } else {
+        alert("No hay personas en la lista");
+    }
+}
+
 // Funcion para crear el modal de cada alumno
-const modalPersona = (dni) => {
+const modalPersona = (dni, nombre, apellido) => {
     let removeModal = document.querySelector("#modalPersona");
     if (removeModal) {
         removeModal.remove();
@@ -189,73 +253,56 @@ const modalPersona = (dni) => {
 
             $('#modalPersona').modal('show');
 
+            // Llamo la funcion para eliminar alumno
+            $(`.btn-eliminar`).click(function (e) {
+                e.preventDefault();
+                $('#modalPersona').modal('hide');
+                eliminarAlumnos(dni, nombre, apellido);
+            });
+
             break;
         }
     }
 }
 
-// Funcion para agregar alumnos
-const agregarPersona = () => {
-    recuperarPersonas();
+const eliminarAlumnos = (dni, nombre, apellido) => {
+    let boolAlumno = false;
 
-    const dni = $('#input-dni').val()
-    const nombre = $('#input-nombre').val()
-    const apellido = $('#input-apellido').val()
-    const edad = $('#input-edad').val()
-    const curso = $('#select-curso').val();
-
-    if(buscarAlumnos(dni)){
-        alert('El dni ingresado ya se encuentra registrado');
+    // ELimino el span para crearlo nuevamente si ya existe
+    let removeSpan = document.querySelector('#spanAlumnos')
+    if(removeSpan){
+        removeSpan.remove();
     }
 
-    else if (dni != "" && !(isNaN(dni)) && nombre != "" && apellido != "" && edad != "" && !(isNaN(edad))) {
-        personas.push(new Personas(parseInt(dni), nombre, apellido, parseInt(edad), curso.substring(0, 3)));
-        localStorage.setItem('arrayPersonas', JSON.stringify(personas));
-        document.querySelector('#formPersonas').reset();
-    } else {
-        alert("Error al ingresar los datos");
-    }
-}
+    let modalALumnosHeader = document.querySelector('.modalHA');
+    let spanAlumnos = document.createElement('span');
+    spanAlumnos.setAttribute('id', "spanAlumnos");
+    spanAlumnos.textContent = ` ${nombre} ${apellido} - ${dni}`;
+    modalALumnosHeader.appendChild(spanAlumnos);
 
-// Funcion para mostrar lista de alumnos
-const mostrarPersona = () => {
-    recuperarPersonas();
+    $('#modalEAlumnos').modal('show');
+    $('.btn-confirmarAlumno').click( function (e) {
+        e.preventDefault();
+        boolAlumno = true;
 
-    if (document.querySelector('.list-group')) {
-        let restabelecerLista = document.querySelector('.list-group');
-        restabelecerLista.remove();
-    }
-
-    if (document.querySelector('.list-groupCursos')) {
-        let listaCurso = document.querySelector('.list-groupCursos');
-        listaCurso.remove();
-    }
-
-    if (JSON.parse(localStorage.getItem('arrayPersonas'))) {
-        const ul = document.createElement('ul');
-        ul.className = "list-group";
-        $('.mostrar-alumnos').append(ul);
-        for (let item of JSON.parse(localStorage.getItem('arrayPersonas'))) {
-            const li = document.createElement('li');
-            li.className = "list-group-item";
-            li.innerHTML = `${item._nombre} ${item._apellido}`;
-
-            const btn = document.createElement('button');
-            btn.type = "button"
-            btn.className = `${item._dni}`;
-            btn.textContent = "Ver"
-            li.appendChild(btn);
-
-            $('ul').append(li);
-
-            $(`.${item._dni}`).click(function (e) {
-                e.preventDefault();
-                modalPersona(item._dni);
-            });
+        if (boolAlumno){
+            eliminarAlumnosLS();
+    
+            let c = 0; // asigno variable contador para eliminar indice deseado
+            for(let alumno of personas) {
+                if(alumno._dni == dni){
+                    personas.splice(c, 1);
+                    break;
+                }
+                c++;
+            }
+            eliminarAlumnosLS();
+            localStorage.setItem('arrayPersonas', JSON.stringify(personas));
+            mostrarPersona();
         }
-    } else {
-        alert("No hay personas en la lista");
-    }
+
+        $('#modalEAlumnos').modal('hide');
+    });
 }
 
 // Funcion para llenar la lista de cursos disponibles
@@ -306,6 +353,48 @@ const agregarCurso = () => {
     }
 }
 
+// Funcion para mostrar listas de cursos
+const mostrarCurso = () => {
+    if (document.querySelector('.list-groupCursos')) {
+        let listaCurso = document.querySelector('.list-groupCursos');
+        listaCurso.remove();
+    }
+
+    if (document.querySelector('.list-group')) {
+        let restabelecerLista = document.querySelector('.list-group');
+        restabelecerLista.remove();
+    }
+
+    recuperarCursos();
+
+    if (JSON.parse(localStorage.getItem('arrayCursos'))) {
+        const ul = document.createElement('ul');
+        ul.className = "list-group list-groupCursos";
+        $('.mostrar-curso').append(ul);
+        for (let item of JSON.parse(localStorage.getItem('arrayCursos'))) {
+            const li = document.createElement('li');
+            li.className = "list-group-item";
+            li.innerHTML = `${item._id} - ${item._nombre} (${item._rubro})`;
+
+            const btnDelCur = document.createElement('button');
+            btnDelCur.type = "button"
+            btnDelCur.className = `${item._id}Curso`;
+            btnDelCur.textContent = "eliminar"
+            li.appendChild(btnDelCur);
+
+            $('ul').append(li);
+
+            // Llamo la funcion en caso de que quiera eliminar el curso
+            $(`.${item._id}Curso`).click(function (e) {
+                e.preventDefault();
+                eliminarCurso(item._id, item._nombre);
+            });
+        }
+    } else {
+        alert("No hay cursos en la lista");
+    }
+}
+
 // Funcion para eliminar cursos
 const eliminarCurso = (id, nombre) => {
     let boolCurso = false;
@@ -345,47 +434,6 @@ const eliminarCurso = (id, nombre) => {
 
         $('#modalCurso').modal('hide');
     });
-}
-
-// Funcion para mostrar listas de cursos
-const mostrarCurso = () => {
-    if (document.querySelector('.list-groupCursos')) {
-        let listaCurso = document.querySelector('.list-groupCursos');
-        listaCurso.remove();
-    }
-
-    if (document.querySelector('.list-group')) {
-        let restabelecerLista = document.querySelector('.list-group');
-        restabelecerLista.remove();
-    }
-
-    recuperarCursos();
-
-    if (JSON.parse(localStorage.getItem('arrayCursos'))) {
-        const ul = document.createElement('ul');
-        ul.className = "list-group list-groupCursos";
-        $('.mostrar-curso').append(ul);
-        for (let item of JSON.parse(localStorage.getItem('arrayCursos'))) {
-            const li = document.createElement('li');
-            li.className = "list-group-item";
-            li.innerHTML = `${item._id} - ${item._nombre} (${item._rubro})`;
-
-            const btnDelCur = document.createElement('button');
-            btnDelCur.type = "button"
-            btnDelCur.className = `${item._id}Curso`;
-            btnDelCur.textContent = "eliminar"
-            li.appendChild(btnDelCur);
-
-            $('ul').append(li);
-
-            $(`.${item._id}Curso`).click(function (e) {
-                e.preventDefault();
-                eliminarCurso(item._id, item._nombre);
-            });
-        }
-    } else {
-        alert("No hay cursos en la lista");
-    }
 }
 
 const inicializar = () => {
