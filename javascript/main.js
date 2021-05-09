@@ -64,6 +64,18 @@ const buscarCursosNombre = (nombre) =>{
     }
 }
 
+// Funcion para verificar si el curso esta inscripto en una persona
+const comparaCursos = (cursosPersona, cursoAgregar) =>{
+    let arrayCursos = cursosPersona.split(',');
+    let verifica = true;
+    for(let item of arrayCursos){
+        if(item == cursoAgregar){
+            verifica = false;
+        }
+    }
+    return verifica;
+}
+
 // Funcion para buscar alumnos por dni
 const buscarAlumnos = (dni) =>{
     for(let alumno of JSON.parse(localStorage.getItem('arrayPersonas'))){
@@ -215,7 +227,7 @@ const modalPersona = (dni, nombre, apellido, edad, curso) => {
             </div>
 
             <div id="contenedorCursosAlumno">
-                <label for="select-alumnoCursos"> Cursos: </label>
+                <label for="select-alumnoCursos">Inscripto: </label>
                 <select id="select-alumnoCursos" name="select-alumnoCursos" readonly>
                 </select>
                 <button type="button" id="btnEliminarCurso">Eliminar</button>
@@ -289,14 +301,19 @@ const modalPersona = (dni, nombre, apellido, edad, curso) => {
                 e.preventDefault();
                 recuperarPersonas();
 
-                for(let persona of personas){
-                    if(dni == persona._dni){
-                        persona._curso += `,${buscarCursosNombre($('#select-alumnoCursosAdd').val())}`;
-                        break;
+                if(!comparaCursos(persona._curso, buscarCursosNombre($('#select-alumnoCursosAdd').val()))){
+                    alert('El curso que deseas agregar ya se encuentra registrado en el alumno');
+                }else{
+                    for(let persona of personas){
+                        if(dni == persona._dni){
+                            persona._curso += `,${buscarCursosNombre($('#select-alumnoCursosAdd').val())}`;
+                            break;
+                        }
                     }
+                    $('#modalPersona').modal('hide');
+                    
+                    localStorage.setItem('arrayPersonas', JSON.stringify(personas));
                 }
-                
-                localStorage.setItem('arrayPersonas', JSON.stringify(personas));
             });
 
             break; 
