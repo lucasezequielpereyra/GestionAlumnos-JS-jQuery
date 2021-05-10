@@ -64,6 +64,16 @@ const buscarCursosNombre = (nombre) =>{
     }
 }
 
+// Buscar curso por id
+const buscarCursos = (id) => {
+    recuperarCursos();
+    for(let curso of JSON.parse(localStorage.getItem('arrayCursos'))){
+        if(id == curso._id){
+            return true;
+        }
+    }
+}
+
 // Funcion para verificar si el curso esta inscripto en una persona
 const comparaCursos = (cursosPersona, cursoAgregar) =>{
     let arrayCursos = cursosPersona.split(',');
