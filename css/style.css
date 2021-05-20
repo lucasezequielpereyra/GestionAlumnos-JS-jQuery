@@ -41,7 +41,7 @@ button {
   user-select: none; }
 
 header .contenedor-menu {
-  background: url(https://lucasezequielpereyra.github.io/coder-js/assets/fondo.png), linear-gradient(to left, #d45fc1, #e63ab2); }
+  background: url(https://lucasezequielpereyra.github.io/Gestion-Alumnos-Cursos-Coder-House/assets/fondo.png), linear-gradient(to left, #d45fc1, #e63ab2); }
   header .contenedor-menu .titulo h1 {
     color: #fff;
     text-transform: uppercase;
@@ -171,7 +171,7 @@ header .contenedor-menu {
     width: 7.2rem; }
 
 footer {
-  background: url(https://lucasezequielpereyra.github.io/coder-js/assets/fondo.png), linear-gradient(to left, #d45fc1, #e63ab2);
+  background: url(https://lucasezequielpereyra.github.io/Gestion-Alumnos-Cursos-Coder-House/assets/fondo.png), linear-gradient(to left, #d45fc1, #e63ab2);
   position: absolute;
   bottom: 0;
   width: 100%;

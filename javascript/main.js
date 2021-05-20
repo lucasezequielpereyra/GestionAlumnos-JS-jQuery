@@ -1,8 +1,8 @@
 let personas = [];
 let cursos = [];
 
-const urlAlumnos = 'https://lucasezequielpereyra.github.io/coder-js/api/alumnos.json';
-const urlCursos = 'https://lucasezequielpereyra.github.io/coder-js/api/cursos.json';
+const urlAlumnos = 'https://lucasezequielpereyra.github.io/Gestion-Alumnos-Cursos-Coder-House/api/alumnos.json';
+const urlCursos = 'https://lucasezequielpereyra.github.io/Gestion-Alumnos-Cursos-Coder-House/api/cursos.json';
 
 
 // Funcion para cargar select cursos por alumno
