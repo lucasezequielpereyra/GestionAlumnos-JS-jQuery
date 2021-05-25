@@ -526,7 +526,7 @@ const rellenarSelectAlumnos = () => {
 
     $('#form-select').append(selectCursos);
 
-    for (item of recuperoCursos) {
+    for (let item of recuperoCursos) {
         let option = document.createElement('option');
         option.textContent = `${item._id};${item._nombre};${item._rubro}`
         $('#select-curso').append(option);
