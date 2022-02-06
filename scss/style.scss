@@ -11,7 +11,7 @@ button {
 
 header {
   .contenedor-menu {
-    background: url(https://lucasezequielpereyra.github.io/GestionAlumnos-JS-jQuery/assets/fondo.png),
+    background: url("https://lucasezequielpereyra.github.io/GestionAlumnos-JS-jQuery/assets/fondo.png"),
       linear-gradient(to left, #d45fc1, #e63ab2);
     .titulo {
       h1 {
@@ -197,7 +197,7 @@ header {
 }
 
 footer {
-  background: url(https://lucasezequielpereyra.github.io/GestionAlumnos-JS-jQuery/assets/fondo.png),
+  background: url("https://lucasezequielpereyra.github.io/GestionAlumnos-JS-jQuery/assets/fondo.png"),
     linear-gradient(to left, #d45fc1, #e63ab2);
   position: absolute;
   bottom: 0;

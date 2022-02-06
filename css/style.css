@@ -41,7 +41,7 @@ button {
   user-select: none; }
 
 header .contenedor-menu {
-  background: url(https://lucasezequielpereyra.github.io/Gestion-Alumnos-Cursos-Coder-House/assets/fondo.png), linear-gradient(to left, #d45fc1, #e63ab2); }
+  background: url("https://lucasezequielpereyra.github.io/GestionAlumnos-JS-jQuery/assets/fondo.png"), linear-gradient(to left, #d45fc1, #e63ab2); }
   header .contenedor-menu .titulo h1 {
     color: #fff;
     text-transform: uppercase;
@@ -89,9 +89,9 @@ header .contenedor-menu {
       .contenedor-info .contenedor-curso .mostrar-curso button {
         background-color: #e63ab2;
         color: #fff;
-        font-size: .7rem;
-        padding: .3rem;
-        border-radius: .5rem;
+        font-size: 0.7rem;
+        padding: 0.3rem;
+        border-radius: 0.5rem;
         margin-left: 2rem; }
         .contenedor-info .contenedor-curso .mostrar-curso button:hover {
           background-color: #d45fc1; }
@@ -121,21 +121,42 @@ header .contenedor-menu {
       .contenedor-info .contenedor-alumnos .mostrar-alumnos button {
         background-color: #e63ab2;
         color: #fff;
-        font-size: .7rem;
-        padding: .3rem;
-        border-radius: .5rem;
+        font-size: 0.7rem;
+        padding: 0.3rem;
+        border-radius: 0.5rem;
         margin-left: 2rem; }
         .contenedor-info .contenedor-alumnos .mostrar-alumnos button:hover {
           background-color: #d45fc1; }
 
-#modalPersona .modal-header #spanAlumno, #modalPersona .modal-header #spanCursos, #modalPersona .modal-header #spanAlumnos, #modalPersona .modal-header #spanModificarA, #modalCurso .modal-header #spanAlumno, #modalCurso .modal-header #spanCursos, #modalCurso .modal-header #spanAlumnos, #modalCurso .modal-header #spanModificarA, #modalEAlumnos .modal-header #spanAlumno, #modalEAlumnos .modal-header #spanCursos, #modalEAlumnos .modal-header #spanAlumnos, #modalEAlumnos .modal-header #spanModificarA, #modalMAlumnos .modal-header #spanAlumno, #modalMAlumnos .modal-header #spanCursos, #modalMAlumnos .modal-header #spanAlumnos, #modalMAlumnos .modal-header #spanModificarA {
+#modalPersona .modal-header #spanAlumno,
+#modalPersona .modal-header #spanCursos,
+#modalPersona .modal-header #spanAlumnos,
+#modalPersona .modal-header #spanModificarA,
+#modalCurso .modal-header #spanAlumno,
+#modalCurso .modal-header #spanCursos,
+#modalCurso .modal-header #spanAlumnos,
+#modalCurso .modal-header #spanModificarA,
+#modalEAlumnos .modal-header #spanAlumno,
+#modalEAlumnos .modal-header #spanCursos,
+#modalEAlumnos .modal-header #spanAlumnos,
+#modalEAlumnos .modal-header #spanModificarA,
+#modalMAlumnos .modal-header #spanAlumno,
+#modalMAlumnos .modal-header #spanCursos,
+#modalMAlumnos .modal-header #spanAlumnos,
+#modalMAlumnos .modal-header #spanModificarA {
   color: #e63ab2; }
 
-#modalPersona .modal-body .strong, #modalCurso .modal-body .strong, #modalEAlumnos .modal-body .strong, #modalMAlumnos .modal-body .strong {
+#modalPersona .modal-body .strong,
+#modalCurso .modal-body .strong,
+#modalEAlumnos .modal-body .strong,
+#modalMAlumnos .modal-body .strong {
   font-weight: bold;
   margin-top: 1rem; }
 
-#modalPersona .modal-body button, #modalCurso .modal-body button, #modalEAlumnos .modal-body button, #modalMAlumnos .modal-body button {
+#modalPersona .modal-body button,
+#modalCurso .modal-body button,
+#modalEAlumnos .modal-body button,
+#modalMAlumnos .modal-body button {
   background-color: #d45fc1;
   border: 1px #e63ab2;
   border-radius: 3px;
@@ -143,35 +164,56 @@ header .contenedor-menu {
   color: #fff;
   text-transform: uppercase; }
 
-#modalPersona .modal-body #select-alumnoCursos, #modalCurso .modal-body #select-alumnoCursos, #modalEAlumnos .modal-body #select-alumnoCursos, #modalMAlumnos .modal-body #select-alumnoCursos {
+#modalPersona .modal-body #select-alumnoCursos,
+#modalCurso .modal-body #select-alumnoCursos,
+#modalEAlumnos .modal-body #select-alumnoCursos,
+#modalMAlumnos .modal-body #select-alumnoCursos {
   margin-bottom: 2rem; }
 
-#modalPersona .modal-footer button, #modalCurso .modal-footer button, #modalEAlumnos .modal-footer button, #modalMAlumnos .modal-footer button {
+#modalPersona .modal-footer button,
+#modalCurso .modal-footer button,
+#modalEAlumnos .modal-footer button,
+#modalMAlumnos .modal-footer button {
   text-transform: uppercase; }
-  #modalPersona .modal-footer button.btn-agregar, #modalCurso .modal-footer button.btn-agregar, #modalEAlumnos .modal-footer button.btn-agregar, #modalMAlumnos .modal-footer button.btn-agregar {
+  #modalPersona .modal-footer button.btn-agregar,
+  #modalCurso .modal-footer button.btn-agregar,
+  #modalEAlumnos .modal-footer button.btn-agregar,
+  #modalMAlumnos .modal-footer button.btn-agregar {
     background-color: #e63ab2;
     color: #fff;
     width: 7.2rem; }
-  #modalPersona .modal-footer button.btn-eliminar, #modalCurso .modal-footer button.btn-eliminar, #modalEAlumnos .modal-footer button.btn-eliminar, #modalMAlumnos .modal-footer button.btn-eliminar {
+  #modalPersona .modal-footer button.btn-eliminar,
+  #modalCurso .modal-footer button.btn-eliminar,
+  #modalEAlumnos .modal-footer button.btn-eliminar,
+  #modalMAlumnos .modal-footer button.btn-eliminar {
     background-color: rgba(246, 0, 0, 0.993);
     color: #fff;
     width: 7.2rem; }
-  #modalPersona .modal-footer button.btn-cerrar, #modalCurso .modal-footer button.btn-cerrar, #modalEAlumnos .modal-footer button.btn-cerrar, #modalMAlumnos .modal-footer button.btn-cerrar {
+  #modalPersona .modal-footer button.btn-cerrar,
+  #modalCurso .modal-footer button.btn-cerrar,
+  #modalEAlumnos .modal-footer button.btn-cerrar,
+  #modalMAlumnos .modal-footer button.btn-cerrar {
     background-color: gray;
     color: #fff;
     width: 7.2rem;
     margin-left: 2rem; }
-  #modalPersona .modal-footer button.btn-cerrar, #modalCurso .modal-footer button.btn-cerrar, #modalEAlumnos .modal-footer button.btn-cerrar, #modalMAlumnos .modal-footer button.btn-cerrar {
+  #modalPersona .modal-footer button.btn-cerrar,
+  #modalCurso .modal-footer button.btn-cerrar,
+  #modalEAlumnos .modal-footer button.btn-cerrar,
+  #modalMAlumnos .modal-footer button.btn-cerrar {
     background-color: gray;
     color: #fff;
     width: 7.2rem; }
-  #modalPersona .modal-footer button.btn-ok, #modalCurso .modal-footer button.btn-ok, #modalEAlumnos .modal-footer button.btn-ok, #modalMAlumnos .modal-footer button.btn-ok {
+  #modalPersona .modal-footer button.btn-ok,
+  #modalCurso .modal-footer button.btn-ok,
+  #modalEAlumnos .modal-footer button.btn-ok,
+  #modalMAlumnos .modal-footer button.btn-ok {
     background-color: #e63ab2;
     color: #fff;
     width: 7.2rem; }
 
 footer {
-  background: url(https://lucasezequielpereyra.github.io/Gestion-Alumnos-Cursos-Coder-House/assets/fondo.png), linear-gradient(to left, #d45fc1, #e63ab2);
+  background: url("https://lucasezequielpereyra.github.io/GestionAlumnos-JS-jQuery/assets/fondo.png"), linear-gradient(to left, #d45fc1, #e63ab2);
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -179,4 +221,4 @@ footer {
   color: white; }
   footer h5 {
     text-align: center;
-    padding-top: .2rem; }
+    padding-top: 0.2rem; }
