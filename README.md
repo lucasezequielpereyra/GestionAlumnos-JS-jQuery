@@ -1,8 +1,8 @@
 # Sistema de Cursos
+
 _Sistema de Cursos - CoderHouse Single-Page_
 
-* [Preview](https://lucasezequielpereyra.github.io/Gestion-Alumnos-Cursos-Coder-House/)
-
+- [Preview](https://lucasezequielpereyra.github.io/GestionAlumnos-JS-jQuery/)
 
 ## Construido con 🛠️
 
