@@ -23,11 +23,12 @@ const eliminarCursosLS = () => {
 
 // Funcion para recuperar cursos del localstorage
 const recuperarCursos = () => {
-  0;
-  let recuperoCursos = JSON.parse(localStorage.getItem("arrayCursos"));
-  if (recuperoCursos) {
-    cursos = recuperoCursos;
+  if (JSON.parse(localStorage.getItem("arrayCursos"))) {
+    cursos = recuperarCursos;
+    return;
   }
+  cursos = [];
+  return;
 };
 
 // Funcion para recuperar alumnos del localstorage
@@ -76,9 +77,11 @@ const buscarCursosNombre = (nombre) => {
 // Buscar curso por id
 const buscarCursos = (id) => {
   recuperarCursos();
-  for (let curso of JSON.parse(localStorage.getItem("arrayCursos"))) {
-    if (id == curso._id) {
-      return true;
+  if (JSON.parse(localStorage.getItem("arrayCursos"))) {
+    for (let curso of JSON.parse(localStorage.getItem("arrayCursos"))) {
+      if (id == curso._id) {
+        return true;
+      }
     }
   }
 };
@@ -97,9 +100,11 @@ const comparaCursos = (cursosPersona, cursoAgregar) => {
 
 // Funcion para buscar alumnos por dni
 const buscarAlumnos = (dni) => {
-  for (let alumno of JSON.parse(localStorage.getItem("arrayPersonas"))) {
-    if (dni == alumno._dni) {
-      return alumno._nombre;
+  if (JSON.parse(localStorage.getItem("arrayPersonas"))) {
+    for (let alumno of JSON.parse(localStorage.getItem("arrayPersonas"))) {
+      if (dni == alumno._dni) {
+        return alumno._nombre;
+      }
     }
   }
 };
